@@ -5,3 +5,12 @@ background-color:rgb(255,255,255)
 #userLabel,#passwdLabel{
     color:black;
 }
+
+
+#errLabel[state='normal']{
+    color:green;
+}
+
+#errLabel[state='err']{
+    color:red;
+}

@@ -29,12 +29,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     logindialog.cpp \
-    registerdialog.cpp
+    registerdialog.cpp \
+    global.cpp
 
 HEADERS += \
         mainwindow.h \
     logindialog.h \
-    registerdialog.h
+    registerdialog.h \
+    global.h
 
 FORMS += \
         mainwindow.ui \
