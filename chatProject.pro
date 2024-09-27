@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network    #要用到QT的网络，加入network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,13 +30,16 @@ SOURCES += \
         mainwindow.cpp \
     logindialog.cpp \
     registerdialog.cpp \
-    global.cpp
+    global.cpp \
+    httpmgr.cpp
 
 HEADERS += \
         mainwindow.h \
     logindialog.h \
     registerdialog.h \
-    global.h
+    global.h \
+    singleton.h \
+    httpmgr.h
 
 FORMS += \
         mainwindow.ui \
