@@ -23,11 +23,12 @@ class HttpMgr: public QObject,public Singleton<HttpMgr>, public std::enable_shar
     Q_OBJECT    //写这个宏才能用Qt的高级特性
 public:
     ~HttpMgr();
+    void PostHttpReq(QUrl url, QJsonObject json, ReqId req_id, Modules mod); // 发送http的函数
 private:
     friend class Singleton<HttpMgr>;    // Singleton的_instance会用new来构造出一个HttpMgr对象，如果不把基类作为友元则调用不了HttpMgr的构造函数
     HttpMgr();
     QNetworkAccessManager _manager; // Qt的网络管理者
-    void PostHttpReq(QUrl url, QJsonObject json, ReqId req_id, Modules mod); // 发送http的函数
+
 private slots:
     void slot_http_finish(ReqId id, QString res, ErrorCodes err, Modules mod);  //槽函数的参数要和信号参数匹配
 signals:

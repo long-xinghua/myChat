@@ -9,6 +9,9 @@
 #include <mutex>    // 互斥量
 #include <QByteArray>
 #include <QNetworkReply>
+#include <QJsonObject>
+#include <QDir>
+#include <QSettings>    // 用来读取config.ini配置
 
 /***********************************************
     * @file     global.h
@@ -36,6 +39,8 @@ enum ErrorCodes{    //记录错误信息，确定错误原因
     ERR_JSON = 1,   //json解析失败
     ERR_NETWORK = 2,    //网络错误
 };
+
+extern QString gate_url_prefix; // 设置一下gate url的前缀，在cpp文件中定义
 
 
 #endif // GLOBAL_H

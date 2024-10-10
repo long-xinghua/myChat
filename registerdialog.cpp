@@ -31,6 +31,10 @@ void RegisterDialog::on_getCode_clicked()
     bool match = regex.match(email).hasMatch();
     if(match){
         // 匹配成功，发送http验证码
+        QJsonObject json_obj;
+        json_obj["email"] = email;
+        // 给服务器发送post请求
+        HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix + "/get_varifyCode"), json_obj, ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
         showTip(tr("验证码已发送"),true);
     }else{
         showTip(tr("邮箱地址不正确"),false);

@@ -48,3 +48,20 @@ FORMS += \
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    config.ini
+
+win32:CONFIG(debug, debug | release)
+{
+    #指定要拷贝的文件目录为工程目录下release目录下的所有dll、lib文件，例如工程目录在D:\QT\Test
+    #PWD就为D:/QT/Test，DllFile = D:/QT/Test/release/*.dll
+    TargetConfig = $${PWD}/config.ini
+    #将输入目录中的"/"替换为"\"
+    TargetConfig = $$replace(TargetConfig, /, \\)
+    #将输出目录中的"/"替换为"\"
+    OutputDir =  $${OUT_PWD}/$${DESTDIR}
+    OutputDir = $$replace(OutputDir, /, \\)
+    #执行copy命令,将config.ini拷贝到输出文件夹
+    QMAKE_POST_LINK += copy /Y \"$$TargetConfig\" \"$$OutputDir\"
+}

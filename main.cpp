@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QFile>
+#include "global.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,14 @@ int main(int argc, char *argv[])
     }else{
         qDebug("Open .qss failed");
     }
+
+    QString fileName = "config.ini";
+    QString app_path = QCoreApplication::applicationDirPath();
+    QString config_path = QDir::toNativeSeparators(app_path + QDir::separator() + fileName);    // 记录配置文件的位置，QDir::separator()就是分隔符，自动识别，在linux中为“/”，在windows中为“\”
+    QSettings settings(config_path, QSettings::IniFormat);  //把config.ini中的配置读到settings中，QSettings::IniFormat指定这是个.ini文件
+    QString gate_host = settings.value("GateServer/host").toString();
+    QString gate_port = settings.value("GateServer/port").toString();
+    gate_url_prefix = "http://" + gate_host + ":" + gate_port;  // global中定义的gate_url_prefix（即http://localhost:8080）
 
     MainWindow w;
     w.show();
