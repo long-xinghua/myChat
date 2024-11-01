@@ -32,7 +32,7 @@ private:
 
 public slots:
     void switch2reg_slot(); // 切换到注册页面
-
+    void switch2Login_slot();   //切换到登陆界面
 };
 
 #endif // MAINWINDOW_H

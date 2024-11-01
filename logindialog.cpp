@@ -1,5 +1,6 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
+#include <QDebug>
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -12,5 +13,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
 LoginDialog::~LoginDialog()
 {
+    qDebug()<<"LoginDialog析构函数";
     delete ui;
 }
