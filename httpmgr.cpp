@@ -38,9 +38,16 @@ void HttpMgr::PostHttpReq(QUrl url, QJsonObject json, ReqId req_id, Modules mod)
 
 void HttpMgr::slot_http_finish(ReqId id, QString res, ErrorCodes err, Modules mod)
 {
-    if(mod == Modules::REGISTERMOD){
+    if(mod == Modules::REGISTERMOD){    // 如果发送http请求的是注册模块，给注册模块发送http相应结束的信号
         // 发送信号通知指定模块，http响应结束了
         emit sig_reg_mod_finish(id,res,err);    //注册模块的http响应完成的信号，接下来交给RegisterDialog中对应的槽函数处理
+    }
+    if(mod == Modules::RESETMOD){   // 重置密码模块
+        //qDebug()<<"给重置模块发请求完成信号";
+        emit sig_reset_mod_finish(id,res,err);    //重置模块的http响应完成的信号，接下来交给ResetDialog中对应的槽函数处理
+    }
+    if(mod == Modules::LOGINMOD){   //登录模块的http响应完成的信号，接下来交给LoginDialog中对应的槽函数处理
+        emit sig_login_mod_finish(id, res, err);
     }
 }
 

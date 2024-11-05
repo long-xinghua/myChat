@@ -4,7 +4,8 @@
 
 ClickedLabel::ClickedLabel(QWidget *parent): QLabel(parent), _curState(ClickLbState::Normal)    // 初始状态为未选中的Normal状态
 {
-
+    // 这样当鼠标进入clickedLabel对象时光标就会自动变成小手的样子
+    this->setCursor(Qt::PointingHandCursor);
 }
 
 ClickedLabel::~ClickedLabel()

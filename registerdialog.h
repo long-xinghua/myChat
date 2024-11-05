@@ -33,25 +33,27 @@ private slots:
 
     void on_returnButton_clicked();
     
-private:
-    void initHttpHndlers(); //用于注册处理不同事件的回调函数
+    void on_returnButton_2_clicked();
+
+private: 
     Ui::RegisterDialog *ui;
-    void showTip(QString str, bool ok); // 用于在错误标签上显示信息
     QMap<ReqId,std::function<void(const QJsonObject&)>> _handlers;    // 用map绑定请求id和相应的响应函数对象，就可以使用如_handlers[id]()来调用相应函数
-    void changeTipPage();
-
-    void AddTipErr(TipErr te, QString tips);    // 用来往错误列表里添加错误
-    void DelTipErr(TipErr te);                  // 删除错误列表中的错误
     QMap<TipErr, QString> _tip_errs;
+    QTimer* _countdownTimer;    // 设置定时器
+    int _countdown;             // 设置自动返回主界面的倒计时时间
 
-    bool checkUserValid();  //
+    void initHttpHndlers(); //用于注册处理不同事件的回调函数
+    void showTip(QString str, bool ok); // 用于在错误标签上显示信息    
+    void changeTipPage();
+    void AddTipErr(TipErr te, QString tips);    // 用来往错误列表里添加错误并显示当前错误
+    void DelTipErr(TipErr te);                  // 删除错误列表中的错误并显示之前的错误   
+    bool checkUserValid();
     bool checkEmailValid();
     bool checkPassValid();
     bool checkConfirmValid();
     bool checkVarifyValid();
 
-    QTimer* _countdownTimer;    // 设置定时器
-    int _countdown;             // 设置自动返回主界面的倒计时时间
+
 
 signals:
     void sigReturnToLogin();

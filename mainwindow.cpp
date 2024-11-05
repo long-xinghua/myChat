@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // 点击注册按钮跳转到注册页面
     connect(loginDlg, &LoginDialog::switch2reg, this, &MainWindow::switch2reg_slot);
     
+    // 点击忘记密码按钮跳转到重置页面
+    connect(loginDlg, &LoginDialog::switch2reset, this, &MainWindow::switch2reset_slot);
     
 }
 
@@ -54,5 +56,39 @@ void MainWindow::switch2Login_slot()
 
     // 点击注册按钮跳转到注册页面
     connect(loginDlg, &LoginDialog::switch2reg, this, &MainWindow::switch2reg_slot);
+    // 点击忘记密码按钮跳转到重置页面
+    connect(loginDlg, &LoginDialog::switch2reset, this, &MainWindow::switch2reset_slot);
+    
+}
 
+void MainWindow::switch2reset_slot()
+{
+    qDebug()<<"switch2reset_slot函数";
+    // 添加重置界面
+    resetDlg = new ResetDialog(this);
+    resetDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+
+    connect(resetDlg, &ResetDialog::switch2Login, this, &MainWindow::switch2Login_slot);
+    //切换到重置界面
+    setCentralWidget(resetDlg);
+//    loginDlg->hide();
+//    resetDlg->show();
+    
+}
+
+void MainWindow::siwtch2Login_slot2()
+{
+    // 这里需要重新创建loginDialog？？
+    loginDlg = new LoginDialog(this);   //  对话框比主窗口大会导致嵌不进去
+    loginDlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);  // 把对话框设置成无边框的样式
+
+    // 切换到登陆界面后重置界面就被析构了
+    setCentralWidget(loginDlg);
+    //resetDlg->hide();
+    //loginDlg->show();
+
+    // 点击注册按钮跳转到注册页面
+    connect(loginDlg, &LoginDialog::switch2reg, this, &MainWindow::switch2reg_slot);
+    // 点击忘记密码按钮跳转到重置页面
+//    connect(loginDlg, &LoginDialog::switch2reset, this, &MainWindow::switch2reset_slot);
 }

@@ -29,17 +29,25 @@ extern std::function<QString(QString)> xorString;   // 对输入字符串进行�
 
 enum ReqId{ // 记录几个http请求的功能
     ID_GET_VARIFY_CODE = 1001,  //获取验证码
-    ID_REG_USER = 1002, //注册用户
+    ID_REG_USER = 1002,     //注册用户
+    ID_RESET_PWD = 1003,    //重置密码
+    ID_LOGIN_USER = 1004,   //用户登录
+    ID_CHAT_LOGIN = 1005,   // 登录聊天服务器
+    ID_CHAT_LOGIN_RSP = 1006,   // 登录聊天服务器回包
 };
 
 enum Modules{   //记录不同的模块
     REGISTERMOD = 0,    //注册模块    
+    RESETMOD = 1,       //重置密码模块
+    LOGINMOD = 2,       //登录模块
 };
 
 enum ErrorCodes{    //记录错误信息，确定错误原因
     SUCCESS = 0,    //成功
     ERR_JSON = 1,   //json解析失败
     ERR_NETWORK = 2,    //网络错误
+
+    // 下面是GateServer中设置的一些错误
     ERR_UserExist = 1005,   // 用户已存在
 };
 
@@ -56,6 +64,13 @@ enum TipErr{
 enum ClickLbState{  // 记录可点击标签的状态
     Normal = 0,     // 普通状态
     Selected = 1,   // 被选中状态
+};
+
+struct ServerInfo{
+    QString host;
+    QString port;
+    QString token;
+    int uid;
 };
 
 extern QString gate_url_prefix; // 设置一下gate url的前缀，在cpp文件中定义

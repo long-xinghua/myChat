@@ -27,6 +27,7 @@ TimerBtn::~TimerBtn()
 void TimerBtn::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
+        // 这里还有一点要解决，应该是成功发送验证码后才将按钮设置为不可用状态，若发送失败不应该设置为不可用
         qDebug()<<"鼠标左键释放";
         this->setEnabled(false);    // 将按钮设为不可用状态
         this->setText(QString::number(_counter));

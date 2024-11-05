@@ -13,9 +13,9 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
     ui->errLabel->setProperty("state","normal"); // 给错误标签设置属性，把"state"属性设置成"normal"
     ui->errLabel->setText(" ");
     refresh(ui->errLabel);  // 刷新一下标签
-    qDebug()<<"start";
+    //qDebug()<<"start";
     connect(HttpMgr::GetInstance().get(), &HttpMgr::sig_reg_mod_finish, this, &RegisterDialog::slot_reg_mod_finish);    //在这里要是HttpMgr还没有实例化的对象就会进行初始化
-    qDebug()<<"end";
+    //qDebug()<<"end";
     initHttpHndlers();  // 注册各个回调函数
 
     // 连接一下编辑栏编辑完成后的处理函数
@@ -39,8 +39,8 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
         checkVarifyValid();
     });
 
-    ui->pass_visible->setCursor(Qt::PointingHandCursor);    // 让鼠标移到标签上时变成小手的样子
-    ui->confirm_visible->setCursor(Qt::PointingHandCursor); // 同上
+//    ui->pass_visible->setCursor(Qt::PointingHandCursor);    // 让鼠标移到标签上时变成小手的样子
+//    ui->confirm_visible->setCursor(Qt::PointingHandCursor); // 同上
 
     // 加载一下显示眼睛的标签状态
     ui->pass_visible->setState("unvisible","unvisible_hover","","visible","visible_hover","");  // 在这里不用设置press和select_press，用不上
@@ -97,7 +97,7 @@ void RegisterDialog::on_getCode_clicked()
         json_obj["email"] = email;
         // 给服务器发送post请求
         HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix + "/get_varifyCode"), json_obj, ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
-        showTip(tr("验证码已发送"),true);
+        showTip(tr("正在发送验证码"),true);
     }else{
         showTip(tr("邮箱地址不正确"),false);
     }
@@ -129,14 +129,8 @@ void RegisterDialog::initHttpHndlers()
     // 注册获取验证码回包的逻辑
     _handlers.insert(ReqId::ID_GET_VARIFY_CODE, [this](const QJsonObject& jsonObj){
         int error = jsonObj["error"].toInt();
-        if(error != ErrorCodes::SUCCESS){   // 说明出现错误,防御式编程，有错就返回
-            if(error == ErrorCodes::ERR_UserExist){
-                showTip(tr("用户已存在"),false);
-            }
-            else{
-                showTip(tr("参数错误"),false);
-            }
-
+        if(error != ErrorCodes::SUCCESS){   // 说明出现错误,防御式编程，有错就返回        
+            showTip(tr("参数错误"),false);
             qDebug()<<"回包错误代码："<<error;
             return;
         }
@@ -150,7 +144,11 @@ void RegisterDialog::initHttpHndlers()
     _handlers.insert(ReqId::ID_REG_USER, [this](const QJsonObject& jsonObj){
         int error = jsonObj["error"].toInt();
         if(error != ErrorCodes::SUCCESS){
-            showTip(tr("参数错误"),false);
+            if(error == ErrorCodes::ERR_UserExist){
+                showTip(tr("用户已存在"),false);
+            }else{
+                showTip(tr("参数错误"),false);
+            }
             qDebug()<<"注册用户失败，回包错误代码："<<error;
             return;
         }
@@ -334,6 +332,14 @@ void RegisterDialog::on_comfirmButton_clicked()
 
 void RegisterDialog::on_returnButton_clicked()
 {
+    qDebug()<<"按下取消按钮";
+    _countdownTimer->stop();
+    emit sigReturnToLogin();
+}
+
+void RegisterDialog::on_returnButton_2_clicked()
+{
+    qDebug()<<"按下取消按钮";
     _countdownTimer->stop();
     emit sigReturnToLogin();
 }

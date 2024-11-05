@@ -33,7 +33,9 @@ SOURCES += \
     global.cpp \
     httpmgr.cpp \
     timerbtn.cpp \
-    clickedlabel.cpp
+    clickedlabel.cpp \
+    resetdialog.cpp \
+    tcpmgr.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,12 +45,15 @@ HEADERS += \
     singleton.h \
     httpmgr.h \
     timerbtn.h \
-    clickedlabel.h
+    clickedlabel.h \
+    resetdialog.h \
+    tcpmgr.h
 
 FORMS += \
         mainwindow.ui \
     logindialog.ui \
-    registerdialog.ui
+    registerdialog.ui \
+    resetdialog.ui
 
 RESOURCES += \
     resource.qrc
