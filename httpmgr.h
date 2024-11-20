@@ -17,7 +17,7 @@
     * @history
 ***********************************************/
 
-// 继承Singleton单例模板类，模板变量就是HttpMgr本身，CRTP
+// 继承Singleton单例模板类，模板变量就是HttpMgr本身（CRTP），继承enable_shared_from_this使其能创建指向自身的智能指针
 class HttpMgr: public QObject,public Singleton<HttpMgr>, public std::enable_shared_from_this<HttpMgr>
 {
     Q_OBJECT    //写这个宏才能用Qt的高级特性

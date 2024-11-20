@@ -15,8 +15,8 @@ template <typename T>
 class Singleton{    // 单例类,作为基类来使用
 protected:
     Singleton() = default;  // 防止外部用new创建类的实例，但其子类可以用这个构造函数
-    Singleton(const Singleton<T>&) = delete;    // 防止进行拷贝构造
-    Singleton& operator=(const Singleton<T>&) = delete; //防止进行赋值操作
+    Singleton(const Singleton<T>&) = delete;    // 防止进行拷贝构造 父类中禁用拷贝构造的话其子类也是无法调用自身拷贝构造的，因为无法处理父类对象的拷贝构造
+    Singleton& operator=(const Singleton<T>&) = delete; //防止进行赋值操作 原理同上
     static std::shared_ptr<T> _instance;    // 智能指针用于自动回收资源(类中的static变量一定要先初始化，这里只做了声明)
 public:
     static std::shared_ptr<T> GetInstance(){

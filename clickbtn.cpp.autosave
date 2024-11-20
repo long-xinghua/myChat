@@ -1,0 +1,55 @@
+#include "clickbtn.h"
+#include "global.h"
+#include <QVariant>
+
+ClickBtn::ClickBtn(QWidget *parent):QPushButton(parent)
+{
+    setCursor(Qt::PointingHandCursor);      // 把光标设置成小手
+}
+
+ClickBtn::~ClickBtn()
+{
+    
+}
+
+void ClickBtn::setState(QString normal, QString hover, QString press)
+{
+     _normal = normal;
+     _hover = hover;
+     _press = press;
+     setProperty("state", _normal);  // 初始化成normal状态
+     refresh(this);
+     update();
+}
+
+void ClickBtn::enterEvent(QEvent *event)
+{
+    setProperty("state", _hover);
+    refresh(this);
+    update();
+    QPushButton::enterEvent(event);
+}
+
+void ClickBtn::leaveEvent(QEvent *event)
+{
+    setProperty("state", _normal);
+    refresh(this);
+    update();
+    QPushButton::leaveEvent(event);
+}
+
+void ClickBtn::mousePressEvent(QMouseEvent *event)
+{
+    setProperty("state", _press);
+    refresh(this);
+    update();
+    QPushButton::mousePressEvent(event);
+}
+
+void ClickBtn::mouseReleaseEvent(QMouseEvent *event)
+{
+    setProperty("state", _hover);
+    refresh(this);
+    update();
+    QPushButton::mouseReleaseEvent(event);
+}

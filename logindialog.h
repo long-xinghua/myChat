@@ -52,6 +52,8 @@ public slots:
 private slots:
     void on_loginButton_clicked();  // 点击登录按钮槽函数
     void slot_login_mod_finish(ReqId id,QString res,ErrorCodes err);    // http响应完成触发的槽函数
+    void slot_tcp_con_finish(bool success); // tcp连接完成槽函数（参数为true代表连接成功，为false代表失败）
+    void slot_login_failed(int err);        // 处理登陆失败的槽函数
 };
 
 #endif // LOGINDIALOG_H

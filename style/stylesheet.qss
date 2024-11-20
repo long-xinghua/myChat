@@ -64,3 +64,19 @@ background-color:rgb(255,255,255)
 #forgetLabel[state='normal_hover'],#forgetLabel[state='selected_hover']{
     color:rgb(42, 112, 241);
 }
+
+#addButton[state='normal']{
+    border-image: url(:/res/add_friend_normal.png)
+}
+
+#addButton[state='hover']{
+    border-image: url(:/res/add_friend_hover.png)
+}
+
+#addButton[state='press']{
+    border-image: url(:/res/add_friend.png)
+}
+
+#sideBar{
+    background-color:rgb(46,46,46);
+}

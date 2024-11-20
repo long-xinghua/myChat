@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QPainter>
 #include "httpmgr.h"
+#include "tcpmgr.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -32,6 +33,13 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
     //连接HttpMgr发过来的http完成信号(这里犯了个错，connect的第一个参数是裸指针，HttpMgr::GetInstance()只拿到了智能指针，需再调用get()得到裸指针)
     connect(HttpMgr::GetInstance().get(), &HttpMgr::sig_login_mod_finish, this, &LoginDialog::slot_login_mod_finish);
+
+    //连接tcp连接请求的信号和槽
+    connect(this, &LoginDialog::sig_connect_tcp, TcpMgr::GetInstance().get(), &TcpMgr::slot_tcp_connect);
+    // 连接tcpMgr发出的连接成功信号
+    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_con_success, this, &LoginDialog::slot_tcp_con_finish);
+    // 连接tcpMgr发出的登录失败信号
+    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_login_failed, this, &LoginDialog::slot_login_failed);
 }
 
 LoginDialog::~LoginDialog()
@@ -78,6 +86,8 @@ void LoginDialog::initHttpHandlers()
             }else{
                 showTip(tr("参数错误"), false);
             }
+            // 在返回之前将按钮置为可用状态
+            enableBtn(true);
             return;
         }
         showTip(tr("登录成功！"), true);
@@ -219,9 +229,37 @@ void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
     }
 
     _handlers[id](jsonDoc.object()); //回调函数，根据任务id来进行处理
-    // 回调函数处理完后将按键置为可用状态
-    enableBtn(true);
+    // 回调函数执行完了但还没与tcp服务器成功建立连接，也没有成功登录，要继续等待连接和登录的结果，不能在这就enable按钮
+    // enableBtn(true);
     return;
 
 
+}
+
+void LoginDialog::slot_tcp_con_finish(bool success)
+{
+    if(!success){
+        showTip(tr("服务器连接失败"), false);
+        enableBtn(true);
+        return;
+    }
+    showTip(tr("服务器连接成功！正在登录..."), true);
+    QJsonObject jsonObj;
+    jsonObj["uid"] = _uid;
+    jsonObj["token"] = _token;
+    // 创建QJsonDocument对象将json对象转换成json字符串，方便传输
+    QJsonDocument jsonDoc(jsonObj);
+    QString jsonString = jsonDoc.toJson(QJsonDocument::Indented);
+
+    // 给tcp服务器发送请求，进行逻辑上的登录操作
+    emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);
+
+
+}
+
+void LoginDialog::slot_login_failed(int err)
+{
+    showTip(tr("出错了！登陆失败"),false);
+    qDebug()<<"登陆失败，错误代码："<<err;
+    enableBtn(true);
 }
