@@ -80,3 +80,180 @@ background-color:rgb(255,255,255)
 #sideBar{
     background-color:rgb(46,46,46);
 }
+
+#searchEdit{
+    background-color:rgb(249,249,249);
+    border: 2px solid #f1f1f1;
+}
+
+#chatUserWidget{
+    background-color:rgb(247,247,247);
+}
+
+#chatUserList{
+    background-color: rgb(247,247,247);
+    border: none;
+}
+
+#chatUserList::item::selected{
+    background-color: #d3d7d4;
+    border: none;
+    outline:none;
+}
+
+#chatUserList::item::hover{
+    background-color: rgb(206,207,208);
+    border: none;
+    outline:none;
+}
+
+#chatUserList::focus{
+    border: none;
+    outline:none;
+}
+
+ChatUserWid {
+    background-color:rgb(247,247,247);
+    border: none;
+}
+
+#msgLabel{                  /* 设置用户条目中的消息标签 */
+    color:rgb(153,153,153);
+    font-size: 12px;
+    font-family: "Microsoft YaHei";
+}
+
+#nameLabel{
+    color:rgb(0,0,0);
+    font-size: 14px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei";
+}
+
+#timeWidget #timeLabel{
+   color:rgb(140,140,140);
+   font-size: 12px;
+   font-family: "Microsoft YaHei";
+}
+
+QScrollBar:vertical {
+    background: transparent; /* 将轨道背景设置为透明 */
+    width: 8px; /* 滚动条宽度，根据需要调整 */
+    margin: 0px; /* 移除滚动条与滑块之间的间距 */
+}
+
+QScrollBar::handle:vertical {
+    background: rgb(173,170,169); /* 滑块颜色 */
+    min-height: 10px; /* 滑块最小高度，根据需要调整 */
+    border-radius: 4px; /* 滑块边缘圆角，调整以形成椭圆形状 */
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px; /* 移除上下按钮 */
+    border: none; /* 移除边框 */
+    background: transparent; /* 背景透明 */
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none; /* 页面滚动部分背景透明 */
+}
+
+LoadingDialog{              /* 给加载对话框设置背景颜色*/
+    background: #f2eada;
+}
+
+#titleLabel{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    font-weight: normal;
+}
+
+#chatEdit{            /*聊天打字框*/
+    background: #ffffff;
+    border: none; /* 隐藏边框 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    font-size: 18px; /* 设置字体大小 */
+    padding: 5px; /* 设置内边距 */
+}
+
+#sendWidget{
+    background: #ffffff;
+    border: none; /* 隐藏边框 */
+}
+
+#recvButton[state='normal']{
+    background: #f0f0f0;
+   color: #2cb46e;
+   font-size: 16px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}
+
+#recvButton[state='hover']{
+   background: #d2d2d2;
+   color: #2cb46e;
+   font-size: 16px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}
+
+#recvButton[state='press']{
+   background: #c6c6c6;
+   color: #2cb46e;
+   font-size: 16px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}
+
+#sendButton[state='normal']{
+    background: #f0f0f0;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#sendButton[state='hover']{
+   background: #d2d2d2;
+   color: #2cb46e;
+   font-size: 16px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}
+
+#sendButton[state='press']{
+   background: #c6c6c6;
+   color: #2cb46e;
+   font-size: 16px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}
+
+#toolWidget{
+    background: #ffffff;
+    border-bottom: 0.5px solid #ececec; /* 设置下边框颜色和宽度 */
+}
+
+#emoLabel[state='normal']{
+    border-image: url(:/res/smile.png);
+}
+
+#emoLabel[state='hover']{
+    border-image: url(:/res/smile_hover.png);
+}
+
+#emoLabel[state='press']{
+    border-image: url(:/res/smile_press.png);
+}
+
+#fileLabel[state='normal']{
+    border-image: url(:/res/filedir.png);
+}
+
+#fileLabel[state='hover']{
+    border-image: url(:/res/filedir_hover.png);
+}
+
+#fileLabel[state='press']{
+    border-image: url(:/res/filedir_press.png);
+}

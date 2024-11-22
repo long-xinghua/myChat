@@ -43,17 +43,39 @@ void ClickedLabel::leaveEvent(QEvent *event)
     }
 }
 
+void ClickedLabel::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton){
+        if(_curState == ClickLbState::Normal){
+            qDebug()<<"鼠标按下，标签切换至选中按下状态: "<<_selected_press;
+            _curState = ClickLbState::Selected;
+            setProperty("state", _selected_press);  // 这时鼠标刚按下还未释放，因此设置成按下状态
+            refresh(this);
+            update();
+        }else{
+            qDebug()<<"鼠标按下，标签切换至未选中按下状态: "<<_selected_press;
+            _curState = ClickLbState::Normal;
+            setProperty("state", _normal_press);
+            refresh(this);
+            update();
+        }
+    }
+
+    // 特殊处理做完后还要调用一下基类的函数保证其他效果能正确执行
+    QLabel::mousePressEvent(event);
+}
+
 void ClickedLabel::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
         if(_curState == ClickLbState::Normal){
-            qDebug()<<"鼠标按下，标签切换至选中悬浮状态: "<<_selected_hover;
+            qDebug()<<"鼠标释放，标签切换至选中悬浮状态: "<<_selected_hover;
             _curState = ClickLbState::Selected;
             setProperty("state", _selected_hover);  // 这时鼠标刚按下还未离开，因此设置成按下且悬浮的状态
             refresh(this);
             update();
         }else{
-            qDebug()<<"鼠标按下，标签切换至未选中悬浮状态: "<<_selected_hover;
+            qDebug()<<"鼠标释放，标签切换至未选中悬浮状态: "<<_selected_hover;
             _curState = ClickLbState::Normal;
             setProperty("state", _normal_hover);
             refresh(this);

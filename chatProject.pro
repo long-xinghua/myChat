@@ -38,7 +38,13 @@ SOURCES += \
     tcpmgr.cpp \
     usermgr.cpp \
     chatdialog.cpp \
-    clickedbtn.cpp
+    clickedbtn.cpp \
+    customizededit.cpp \
+    chatuserlist.cpp \
+    chatuserwid.cpp \
+    listitembase.cpp \
+    loadingdialog.cpp \
+    chatpage.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,14 +59,23 @@ HEADERS += \
     tcpmgr.h \
     usermgr.h \
     chatdialog.h \
-    clickedbtn.h
+    clickedbtn.h \
+    customizededit.h \
+    chatuserlist.h \
+    chatuserwid.h \
+    listitembase.h \
+    loadingdialog.h \
+    chatpage.h
 
 FORMS += \
         mainwindow.ui \
     logindialog.ui \
     registerdialog.ui \
     resetdialog.ui \
-    chatdialog.ui
+    chatdialog.ui \
+    chatuserwid.ui \
+    loadingdialog.ui \
+    chatpage.ui
 
 RESOURCES += \
     resource.qrc

@@ -22,8 +22,8 @@ public:
 
     void enterEvent(QEvent* event) override;
     void leaveEvent(QEvent* event) override;
-//    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;    // 感觉用鼠标释放比用鼠标按下更合理点
+    void mousePressEvent(QMouseEvent* event) override;      // 重写鼠标按下事件
+    void mouseReleaseEvent(QMouseEvent* event) override;    // 重写鼠标释放事件
 
     void setState(QString normal="", QString hover="", QString press="",
                   QString select="", QString select_hover="", QString select_press="");

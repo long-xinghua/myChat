@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_switch_chatDlg, this, &MainWindow::slotSwitch2chat);
 
     // 测试用，直接跳转到聊天界面
-    //emit TcpMgr::GetInstance()->sig_switch_chatDlg();
+    emit TcpMgr::GetInstance()->sig_switch_chatDlg();
 }
 
 
@@ -111,4 +111,5 @@ void MainWindow::slotSwitch2chat()
 
     this->setMinimumSize(QSize(600, 400));
     this->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    this->resize(800,600);          // 切换到聊天界面后，把主窗口大小调整一下
 }

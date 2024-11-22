@@ -66,6 +66,21 @@ enum ClickLbState{  // 记录可点击标签的状态
     Selected = 1,   // 被选中状态
 };
 
+enum ChatUIMode{        // 定义聊天窗口的几种模式
+    SearchMode,     // 搜索模式
+    ChatMode,       // 聊天模式
+    ContactMode,    // 联系人模式
+};
+
+enum ListItemType{          // 自定义ChatUserItem的几种类型
+    CHAT_USER_ITEM,     // 聊天用户
+    CONTACT_USER_ITEM,  // 联系人用户
+    SEARCH_USER_ITEM,   // 搜索到的用户
+    ADD_USER_TIP_ITEM,  // 提示添加用户
+    INVALID_ITEM,       // 无效条目
+    GROUP_TIP_ITEM,     // 分组提示条目
+};
+
 struct ServerInfo{
     QString host;
     QString port;
