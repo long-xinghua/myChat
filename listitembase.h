@@ -20,6 +20,8 @@ public:
     explicit ListItemBase(QWidget* parent=nullptr);
     void setItemType(ListItemType itemType);    // 设置条目类型
     ListItemType getItemType();                 // 获取条目类型
+protected:
+    virtual void paintEvent(QPaintEvent *event) override;
 private:
     ListItemType _itemType;
 public slots:

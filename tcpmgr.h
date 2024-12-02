@@ -6,6 +6,15 @@
 #include <functional>
 #include <QObject>
 
+/***********************************************
+    * @file     tcpmgr.h
+    * @brief    tcp管理者类
+    *
+    * @author   wmlatiao
+    * @date     2024/11/5
+    * @history
+***********************************************/
+
 
 // 如果要让类有信号和槽的功能就必须继承QObject类,再继承Singleton类实现单例类
 class TcpMgr: public QObject, public Singleton<TcpMgr>, public std::enable_shared_from_this<TcpMgr>

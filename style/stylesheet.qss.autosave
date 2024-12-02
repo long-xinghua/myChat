@@ -270,7 +270,7 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
     border: none;
 }
 
-#chatUserName{
+#chatUserName{      /* 设置聊天对话框中昵称标签的颜色、大小和字体 */
     color: rgb(153,153,153);
     font-size: 14px;
     font-family: "Microsoft YaHei";

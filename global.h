@@ -81,11 +81,22 @@ enum ListItemType{          // 自定义ChatUserItem的几种类型
     GROUP_TIP_ITEM,     // 分组提示条目
 };
 
+enum ChatRole{          // 当前对话widget所属角色
+    Self,
+    Other
+};
+
 struct ServerInfo{
     QString host;
     QString port;
     QString token;
     int uid;
+};
+
+struct MsgInfo{     // 要发送的消息的信息
+    QString msgFlag;    // 表示消息类型，包括text、image、file等
+    QString content;    // 表示文本信息、图像或文件的url等
+    QPixmap pixmap;     // 图片或者文件的缩略图
 };
 
 extern QString gate_url_prefix; // 设置一下gate url的前缀，在cpp文件中定义

@@ -44,7 +44,14 @@ SOURCES += \
     chatuserwid.cpp \
     listitembase.cpp \
     loadingdialog.cpp \
-    chatpage.cpp
+    chatpage.cpp \
+    chatview.cpp \
+    bubbleframe.cpp \
+    textbubble.cpp \
+    picturebubble.cpp \
+    messagetextedit.cpp \
+    chatitembase.cpp \
+    statewidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -65,7 +72,14 @@ HEADERS += \
     chatuserwid.h \
     listitembase.h \
     loadingdialog.h \
-    chatpage.h
+    chatpage.h \
+    chatview.h \
+    bubbleframe.h \
+    textbubble.h \
+    picturebubble.h \
+    messagetextedit.h \
+    chatitembase.h \
+    statewidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -75,7 +89,8 @@ FORMS += \
     chatdialog.ui \
     chatuserwid.ui \
     loadingdialog.ui \
-    chatpage.ui
+    chatpage.ui \
+    statewidget.ui
 
 RESOURCES += \
     resource.qrc

@@ -3,6 +3,15 @@
 
 #include <QDialog>
 
+/***********************************************
+    * @file     loadingdialog.h
+    * @brief    显示加载图标的对话框，表示正在加载
+    *
+    * @author   wmlatiao
+    * @date     2024/11/22
+    * @history
+***********************************************/
+
 namespace Ui {
 class LoadingDialog;
 }

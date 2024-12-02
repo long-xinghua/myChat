@@ -4,6 +4,16 @@
 #include <QObject>
 #include "singleton.h"
 
+
+/***********************************************
+    * @file     usermgr.h
+    * @brief    用户管理类
+    *
+    * @author   wmlatiao
+    * @date     2024/11/5
+    * @history
+***********************************************/
+
 class UserMgr : public QObject, public Singleton<UserMgr>
 {
     Q_OBJECT

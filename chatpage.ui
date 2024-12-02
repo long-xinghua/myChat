@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="msgWidget" native="true"/>
+       <widget class="ChatView" name="msgWidget" native="true"/>
       </item>
       <item>
        <widget class="QWidget" name="toolWidget" native="true">
@@ -201,7 +201,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="chatEdit">
+       <widget class="MessageTextEdit" name="chatEdit">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -329,6 +329,17 @@
    <class>ClickedLabel</class>
    <extends>QLabel</extends>
    <header location="global">clickedlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ChatView</class>
+   <extends>QWidget</extends>
+   <header location="global">chatview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MessageTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">messagetextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
