@@ -6,7 +6,7 @@ ChatUserWid::ChatUserWid(QWidget *parent) : ListItemBase(parent),
     ui(new Ui::ChatUserWid)
 {
     ui->setupUi(this);
-    this->setItemType(ListItemType::CHAT_USER_ITEM);    // 默认空间类型为聊天用户条目
+    this->setItemType(ListItemType::CHAT_USER_ITEM);    // 默认控件类型为聊天用户条目
 }
 
 ChatUserWid::~ChatUserWid()

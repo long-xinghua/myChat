@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "global.h"
+#include "statewidget.h"
 
 /***********************************************
     * @file     chatdialog.h
@@ -30,12 +31,16 @@ private:
     Ui::ChatDialog *ui;
     ChatUIMode _mode;
     bool _b_loading;
+    QList<StateWidget*> _lbList;  // 存放侧边栏控件的组
 
     void showList(ChatUIMode mode, bool search=false);     // 显示当前模式的一个界面，search代表是否是搜索状态，决定是否显示搜索框
+    void addLabelGroup(StateWidget* label);                 // 将侧边栏按钮加到一个组里方便管理
 signals:
 
 public slots:
-    void slot_loading_chat_user();  // 在聊天列表滚动到底时加载更多联系人信息
+    void slot_loading_chat_user();              // 在聊天列表滚动到底时加载更多联系人信息
+    void slot_sideWid_clicked(StateWidget* w);  // 点击侧边栏时做一个切换的效果
+    void slot_text_changed(const QString&);     // 当搜索框内容改变时显示搜索结果的预览
 
 };
 

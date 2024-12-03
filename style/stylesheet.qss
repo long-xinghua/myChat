@@ -95,16 +95,16 @@ background-color:rgb(255,255,255)
     border: none;
 }
 
-#chatUserList::item::selected{
+#chatUserList::item:selected{
     background-color: #d3d7d4;
     border: none;
-    outline:none;
+    outline: none;
 }
 
-#chatUserList::item::hover{
+#chatUserList::item:hover{
     background-color: rgb(206,207,208);
     border: none;
-    outline:none;
+    outline: none;
 }
 
 #chatUserList::focus{
@@ -270,8 +270,101 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
     border: none;
 }
 
-#chatUserName{
+#chatUserName{      /* 设置聊天对话框中昵称标签的颜色、大小和字体 */
     color: rgb(153,153,153);
     font-size: 14px;
     font-family: "Microsoft YaHei";
+}
+
+
+
+#sideChatLabel[state='normal']{
+    border-image: url(:/res/chat_icon.png);
+}
+
+#sideChatLabel[state='hover']{
+    border-image: url(:/res/chat_icon_hover.png);
+}
+
+#sideChatLabel[state='pressed']{
+    border-image: url(:/res/chat_icon_press.png);
+}
+
+#sideChatLabel[state='selected_normal']{
+    border-image: url(:/res/chat_icon_press.png);
+}
+
+#sideChatLabel[state='selected_hover']{
+    border-image: url(:/res/chat_icon_press.png);
+}
+
+#sideChatLabel[state='selected_pressed']{
+    border-image: url(:/res/chat_icon_press.png);
+}
+
+#sideContactLabel[state='normal']{
+    border-image: url(:/res/contact_list.png);
+}
+
+#sideContactLabel[state='hover']{
+    border-image: url(:/res/contact_list_hover.png);
+}
+
+#sideContactLabel[state='pressed']{
+    border-image: url(:/res/contact_list_press.png);
+}
+
+#sideContactLabel[state='selected_normal']{
+    border-image: url(:/res/contact_list_press.png);
+}
+
+#sideContactLabel[state='selected_hover']{
+    border-image: url(:/res/contact_list_press.png);
+}
+
+#sideContactLabel[state='selected_pressed']{
+    border-image: url(:/res/contact_list_press.png);
+}
+
+/* 搜索列表*/
+#searchList {
+    background-color: rgb(247,247,248);
+    border: none;
+}
+
+#searchList::item:selected {
+    background-color: #d3d7d4;
+    border: none;
+    outline: none;
+}
+
+#searchList::item:hover {
+    background-color: rgb(206,207,208);
+    border: none;
+    outline: none;
+}
+
+#searchList::focus {
+    border: none;
+    outline: none;
+}
+
+/* 使用下面这个又导致对应条目没有选中和悬浮状态了 */
+#invalid_item {
+    background-color: #eaeaea;
+    border: none;
+}
+
+#addTip {
+    border-image: url(:/res/addtip.png);
+}
+
+#rightTip{
+ border-image: url(:/res/right_tip.png);
+}
+
+#messageTip{
+  text-align: center;
+  font-family: "Microsoft YaHei";
+  font-size: 12pt;
 }

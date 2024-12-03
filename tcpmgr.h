@@ -5,6 +5,7 @@
 #include <QTcpSocket>   // QTcpSocket是Tcp一个类，需要在.pro文件中加载对应模块（network模块）
 #include <functional>
 #include <QObject>
+#include "userdata.h"
 
 /***********************************************
     * @file     tcpmgr.h
@@ -45,6 +46,7 @@ signals:
     void sig_send_data(ReqId id, QString data); // 发送数据时触发该信号
     void sig_switch_chatDlg();  // 切换到聊天界面
     void sig_login_failed(int);    // 登陆失败信号（连接成功但登陆失败）, 参数为错误代码
+    void sig_user_search(std::shared_ptr<SearchInfo>);  // 搜索用户信号
 };
 
 #endif // TCPMGR_H

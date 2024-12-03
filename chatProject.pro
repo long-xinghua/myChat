@@ -51,7 +51,10 @@ SOURCES += \
     picturebubble.cpp \
     messagetextedit.cpp \
     chatitembase.cpp \
-    statewidget.cpp
+    statewidget.cpp \
+    searchlist.cpp \
+    userdata.cpp \
+    adduseritem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -79,7 +82,10 @@ HEADERS += \
     picturebubble.h \
     messagetextedit.h \
     chatitembase.h \
-    statewidget.h
+    statewidget.h \
+    searchlist.h \
+    userdata.h \
+    adduseritem.h
 
 FORMS += \
         mainwindow.ui \
@@ -90,7 +96,7 @@ FORMS += \
     chatuserwid.ui \
     loadingdialog.ui \
     chatpage.ui \
-    statewidget.ui
+    adduseritem.ui
 
 RESOURCES += \
     resource.qrc

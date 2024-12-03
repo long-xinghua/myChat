@@ -46,6 +46,27 @@ ChatDialog::ChatDialog(QWidget *parent) :
 
     connect(ui->chatUserList, &ChatUserList::sig_loading_chat_user, this, &ChatDialog::slot_loading_chat_user);
 
+    // 设置侧边栏中的头像
+    QPixmap head(":/res/link1.jpg");
+    head = head.scaled(ui->sideHeadLabel->size(), Qt::KeepAspectRatio);
+    ui->sideHeadLabel->setPixmap(head);
+    //ui->sideHeadLabel->setScaledContents(true);
+
+    // 设置侧边栏中小控件的状态
+    ui->sideChatLabel->setState("normal", "hover", "pressed", "selected_normal", "selected_hover", "selected_pressed");
+    ui->sideContactLabel->setState("normal", "hover", "pressed", "selected_normal", "selected_hover", "selected_pressed");
+    ui->sideChatLabel->setSelected(true);   // 默认为聊天界面
+    // 将控件加到组里
+    addLabelGroup(ui->sideChatLabel);
+    addLabelGroup(ui->sideContactLabel);
+
+    connect(ui->sideChatLabel, &StateWidget::clicked, this, &ChatDialog::slot_sideWid_clicked);
+    connect(ui->sideContactLabel, &StateWidget::clicked, this, &ChatDialog::slot_sideWid_clicked);
+
+    // 搜索框内容变化时的响应
+    connect(ui->searchEdit, &CustomizedEdit::textChanged, this, &ChatDialog::slot_text_changed);
+
+
     // 下面这里测试用
     addUserListTest();
 }
@@ -106,6 +127,7 @@ void ChatDialog::addUserListTest()
         item->setSizeHint(chatUserWid->sizeHint());
         ui->chatUserList->addItem(item);    // 把item加到chatUserList
         ui->chatUserList->setItemWidget(item, chatUserWid); // 把item设置成自定义的widget
+        //item->setFlags(item->flags() & ~Qt::ItemIsSelectable); // 没用
     }
 }
 
@@ -129,6 +151,11 @@ void ChatDialog::showList(ChatUIMode mode, bool search)
     }
 }
 
+void ChatDialog::addLabelGroup(StateWidget *label)
+{
+    _lbList.push_back(label);
+}
+
 void ChatDialog::slot_loading_chat_user()
 {
     if(_b_loading){     // 如果_b_loading为true说明所有信息都加载出来了，就不再加载了
@@ -148,4 +175,39 @@ void ChatDialog::slot_loading_chat_user()
 
 
 
+}
+
+void ChatDialog::slot_sideWid_clicked(StateWidget *w)
+{
+    // 处于被选中状态的控件智能有一个，就是发起点击事件的控件，其他控件的状态都要设置成normal
+    qDebug()<<"侧边控件点击事件";
+    for(auto it=_lbList.begin();it!=_lbList.end();it++){
+        if(*it == w){   // 如果碰到自身
+            // 由于StateWidget中设置了鼠标按下和释放事件，在发出clicked信号时状态已经为selected了
+            // 判断信号来源
+            if(w == ui->sideChatLabel){
+                ui->stackedWidget->setCurrentWidget(ui->chatPage);  // 如果点击的是sideChatLabel就把右侧切换到聊天页面
+                _mode = ChatUIMode::ChatMode;
+            }
+            else if(w == ui->sideContactLabel){
+                ui->stackedWidget->setCurrentWidget(ui->friendRequestPage); // 如果点击的是sideContactLabel就把右侧切换到好友请求页面
+                _mode = ChatUIMode::ContactMode;
+            }
+
+            showList(_mode);
+        }
+        else{
+            if((*it)->getCurState() == ClickLbState::Selected){ // 找到之前被选中的控件
+                // 将其置为普通状态
+                (*it)->clearState();
+            }
+        }
+    }
+}
+
+void ChatDialog::slot_text_changed(const QString& str)
+{
+    if(!str.isEmpty()){
+        showList(_mode, true);      // 第二个参数为true，展示一下搜索框
+    }
 }
