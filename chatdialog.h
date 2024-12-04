@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "global.h"
 #include "statewidget.h"
+#include <QMouseEvent>
 
 /***********************************************
     * @file     chatdialog.h
@@ -26,15 +27,19 @@ public:
     explicit ChatDialog(QWidget *parent = 0);
     ~ChatDialog();
     void addUserListTest(); // 测试添加用户列表的功能
+protected:
+    bool eventFilter(QObject* watched, QEvent* event)override;
 
 private:
     Ui::ChatDialog *ui;
     ChatUIMode _mode;
+    bool _isSearching;               // 用于记录当前是否处于搜索状态
     bool _b_loading;
     QList<StateWidget*> _lbList;  // 存放侧边栏控件的组
 
-    void showList(ChatUIMode mode, bool search=false);     // 显示当前模式的一个界面，search代表是否是搜索状态，决定是否显示搜索框
+    void showList(ChatUIMode mode, bool search=false);      // 显示当前模式的一个界面，search代表是否是搜索状态，决定是否显示搜索框
     void addLabelGroup(StateWidget* label);                 // 将侧边栏按钮加到一个组里方便管理
+    void handleGlobalMousePress(QMouseEvent* event); // 在事件过滤器中处理鼠标点击按下事件的函数
 signals:
 
 public slots:

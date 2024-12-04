@@ -368,3 +368,37 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
   font-family: "Microsoft YaHei";
   font-size: 12pt;
 }
+
+
+#SearchResultDialog{
+   background-color: #ffffff;
+}
+
+#nameLabel{
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+
+#addFriendButton[state='normal']{
+    background: #07c160;
+    color: #ffffff;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#addFriendButton[state='hover']{
+    background: #3bbb4b;
+    color: #ffffff;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#addFriendButton[state='press']{
+   background: #07c160;
+   color: #ffffff;
+   font-size: 14px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
+}

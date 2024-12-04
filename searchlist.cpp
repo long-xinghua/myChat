@@ -2,13 +2,13 @@
 #include<QScrollBar>
 #include "adduseritem.h"
 //#include "invaliditem.h"
-//#include "findsuccessdlg.h"
+#include "searchresultdialog.h"
 #include "tcpmgr.h"
 #include "customizededit.h"
 //#include "findfaildlg.h"
 
 
-SearchList::SearchList(QWidget *parent):QListWidget(parent),_find_dlg(nullptr), _search_edit(nullptr), _send_pending(false)
+SearchList::SearchList(QWidget *parent):QListWidget(parent),_searchResultDlg(nullptr), _search_edit(nullptr), _send_pending(false)
 {
     //Q_UNUSED(parent);
      this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -25,9 +25,9 @@ SearchList::SearchList(QWidget *parent):QListWidget(parent),_find_dlg(nullptr), 
 
 void SearchList::closeFindDlg()
 {
-    if(_find_dlg){
-        _find_dlg->hide();
-        _find_dlg = nullptr;
+    if(_searchResultDlg){
+        _searchResultDlg->hide();
+        _searchResultDlg = nullptr;
     }
 }
 
@@ -92,7 +92,50 @@ void SearchList::addTipItem()
 
 void SearchList::slot_item_clicked(QListWidgetItem *item)
 {
+    // 把item转为QWidget
+    QWidget* w = this->itemWidget(item);
+    // 将w转成ListItemBase类型
+    ListItemBase* myItem = qobject_cast<ListItemBase*>(w);
+    // 判断是否为空
+    if(!myItem){
+        qDebug()<<"点击了空部件";
+        return;
+    }
+    // 根据ListItemBase中的getItemType获取物体类型，执行对应操作
+    ListItemType itemType = myItem->getItemType();
+    if(itemType == ListItemType::INVALID_ITEM){               // 无效条目
+        qDebug()<<"点击到无效条目";
+        return;
+    }
+    else if(itemType == ListItemType::ADD_USER_TIP_ITEM){     // 添加/查找好友条目
+//        if(_send_pending) {
+//            return;
+//        }
+//        waitPending(true);
+//        auto search_edit = dynamic_cast<CustomizeEdit*>(_search_edit);
+//        auto uid_str = search_edit->text();
+//        //此处发送请求给server
+//        QJsonObject jsonObj;
+//        jsonObj["uid"] = uid_str;
 
+//        QJsonDocument doc(jsonObj);
+//        QString jsonString = doc.toJson(QJsonDocument::Indented);
+
+//        //发送tcp请求给chat server
+//        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_SEARCH_USER_REQ, jsonString);
+//        return;
+
+        // 还没连接服务器，简单弹出对话框做个测试
+        _searchResultDlg = std::make_shared<searchResultDialog>(this);
+        std::shared_ptr<SearchInfo> si = std::make_shared<SearchInfo>(0, "张三", "歪比巴卜", "hello", 1);
+        std::dynamic_pointer_cast<searchResultDialog>(_searchResultDlg)->setSearchInfo(si);
+        _searchResultDlg->show();
+        return;
+
+    }
+
+
+    closeFindDlg();
 }
 
 void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)

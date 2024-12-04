@@ -29,7 +29,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
 private:
     bool _send_pending;                 // 为true时界面为阻塞状态，收到服务器回包后置为false
-    std::shared_ptr<QDialog> _find_dlg; // 查找的对话框
+    std::shared_ptr<QDialog> _searchResultDlg; // 查找的对话框
     QWidget* _search_edit;
     LoadingDialog * _loadingDialog;
 

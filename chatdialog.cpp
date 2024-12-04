@@ -8,8 +8,9 @@
 #include <vector>
 #include "loadingdialog.h"
 
+
 ChatDialog::ChatDialog(QWidget *parent) :
-    QDialog(parent), _mode(ChatUIMode::ChatMode),_b_loading(false),
+    QDialog(parent), _mode(ChatUIMode::ChatMode), _isSearching(false), _b_loading(false),
     ui(new Ui::ChatDialog)
 {
     ui->setupUi(this);
@@ -65,6 +66,10 @@ ChatDialog::ChatDialog(QWidget *parent) :
 
     // 搜索框内容变化时的响应
     connect(ui->searchEdit, &CustomizedEdit::textChanged, this, &ChatDialog::slot_text_changed);
+
+
+    // 安装事件过滤器，手动捕获一些事件,如检测鼠标点击位置判断是否清除搜索框
+    this->installEventFilter(this);
 
 
     // 下面这里测试用
@@ -131,6 +136,18 @@ void ChatDialog::addUserListTest()
     }
 }
 
+bool ChatDialog::eventFilter(QObject *watched, QEvent *event)
+{
+    if(watched == this){
+        if(event->type() == QEvent::MouseButtonRelease){
+            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+            handleGlobalMousePress(mouseEvent);
+        }
+    }
+
+    return QDialog::eventFilter(watched, event);
+}
+
 void ChatDialog::showList(ChatUIMode mode, bool search)
 {
     _mode = mode;
@@ -138,22 +155,39 @@ void ChatDialog::showList(ChatUIMode mode, bool search)
         ui->chatUserList->hide();
         ui->contactList->hide();
         ui->searchList->show();
+        _isSearching = true;
     }
     else if(_mode == ChatUIMode::ChatMode){      // 处于聊天模式
         ui->contactList->hide();
         ui->searchList->hide();
         ui->chatUserList->show();
+        _isSearching = false;
     }
     else if(_mode == ChatUIMode::ContactMode){   // 处于联系人模式
         ui->searchList->hide();
         ui->chatUserList->hide();
         ui->contactList->show();
+        _isSearching = false;
     }
 }
 
 void ChatDialog::addLabelGroup(StateWidget *label)
 {
     _lbList.push_back(label);
+}
+
+void ChatDialog::handleGlobalMousePress(QMouseEvent *event)
+{
+    // 不在搜索状态直接返回
+    if(_isSearching == false) return;
+
+    // 将鼠标的全局坐标转化为相对于searchList的局部坐标（如searchList左上角坐标在屏幕上位置为(100,200)，则posInSearchList为(globalX-100,globalY-200)）
+    QPoint posInSearchList = ui->searchList->mapFromGlobal(event->globalPos());
+    
+    if(!ui->searchList->rect().contains(posInSearchList)){  // contains() 是 QRect 类的方法，用于检查一个点是否在该矩形区域内
+        ui->searchEdit->clear();    // 清除搜索框内容
+        showList(_mode, false);     // 隐藏搜索列表
+    }
 }
 
 void ChatDialog::slot_loading_chat_user()
