@@ -2,6 +2,7 @@
 #include "ui_searchresultdialog.h"
 #include <QDir>
 #include <QDebug>
+#include "applyfriend.h"
 
 searchResultDialog::searchResultDialog(QWidget *parent) :
     QDialog(parent), _parent(parent),
@@ -41,5 +42,9 @@ void searchResultDialog::setSearchInfo(std::shared_ptr<SearchInfo> si)
 
 void searchResultDialog::on_addFriendButton_clicked()
 {
-    // 之后再写
+    this->hide();
+    auto applyFriend = new ApplyFriend(_parent);
+    applyFriend->setSearchInfo(_si);
+    applyFriend->setModal(true);
+    applyFriend->show();
 }

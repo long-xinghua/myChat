@@ -30,6 +30,9 @@ public:
 
     ClickLbState GetCurState();
 
+    void setCurState(ClickLbState state);   // 手动设置当前标签的状态
+    void resetNormalState();                // 重置当前标签的状态
+
 private:
     // 未选中时的三个状态
     QString _normal;
@@ -44,7 +47,7 @@ private:
     ClickLbState _curState;
 
 signals:
-    void clicked();
+    void clicked(QString, ClickLbState);
 };
 
 #endif // CLICKEDLABEL_H

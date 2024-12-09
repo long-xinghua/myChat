@@ -37,7 +37,7 @@ private:
     void addTipItem();                 // 模拟从服务器获取到条目的情况，测试用
 
 private slots:
-    void slot_item_clicked(QListWidgetItem *item);
+    void slot_item_clicked(QListWidgetItem *item);          // 点击搜索列表中的物品槽函数
     void slot_user_search(std::shared_ptr<SearchInfo> si);
 signals:
 

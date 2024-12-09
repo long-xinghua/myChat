@@ -5,6 +5,8 @@
 ClickedBtn::ClickedBtn(QWidget *parent):QPushButton(parent)
 {
     setCursor(Qt::PointingHandCursor);      // 把光标设置成小手
+    //this->setFocusPolicy(Qt::NoFocus);      // 把按钮设置为无焦点状态，就只能点击按钮触发，不能直接回车触发（控件不会接收键盘输入事件（例如 keyPressEvent 或 keyReleaseEvent），但它仍然可以接收鼠标事件）
+    this->setFocusPolicy(Qt::ClickFocus);   // 只能通过鼠标点击获得焦点
 }
 
 ClickedBtn::~ClickedBtn()

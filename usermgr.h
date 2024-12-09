@@ -7,7 +7,7 @@
 
 /***********************************************
     * @file     usermgr.h
-    * @brief    用户管理类
+    * @brief    用户管理类，保存登录用户的名字、uid和token
     *
     * @author   wmlatiao
     * @date     2024/11/5
@@ -25,6 +25,9 @@ public:
     void setName(QString name);
     void setUid(int uid);
     void setToken(QString token);
+
+    QString getName();
+    int getUid();
 private:
     UserMgr();
 

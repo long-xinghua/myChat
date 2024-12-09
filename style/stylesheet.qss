@@ -402,3 +402,183 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
    font-family: "Microsoft YaHei"; /* 设置字体 */
    border-radius: 20px; /* 设置圆角 */
 }
+
+#ApplyFriend{
+    border: 2px solid #f1f1f1;
+    font-size: 14px;
+    background: #f7f7f8;
+}
+
+#scrollArea{
+    background: #f7f7f8;
+    border: none;
+}
+
+#scrollAreaContents{
+     background: #f7f7f8;
+}
+
+#scrollAreaContents #applyLabel{
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    font-weight: normal;
+}
+
+#applyWidget QLabel{
+    color:rgb(140,140,140);
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    height: 25px;
+}
+
+#applyWidget #nameEdit, #applyWidget #remarkEdit{
+    border: 1px solid #f7f7f8;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+
+#applyWidget #labelEdit {
+       border: none;
+       font-size: 14px;
+       font-family: "Microsoft YaHei";
+}
+
+#applyWidget #moreLabel{
+    border-image: url(:/res/arowdown.png);
+}
+
+/* 设置标签展示框中标签的样式 */
+#applyWidget #tipslb[state='normal'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #1e1e1e;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslb[state='hover'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #1e1e1e;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslb[state='pressed'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #48bf56;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslb[state='selected_normal'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #48bf56;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslbl[state='selected_hover'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #48bf56;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslb[state='selected_pressed'] {
+    padding: 2px;
+    background: #e1e1e1;
+    color: #1e1e1e;
+    border-radius: 10px;
+}
+
+#inputTipWidget {
+    background: #d3eaf8;
+}
+
+#applyWidget #FriendLabel { /* 没找到这个控件 */
+    background: #daf6e7;
+    color: #48bf56;
+    border-radius: 10px;
+}
+
+#applyWidget #tipslb {
+    padding-left: 2px;
+    color:rgb(153,153,153);
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+
+#gridWidget {
+   background: #fdfdfd;
+}
+
+#friendLabel #closeLabel[state='normal'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#friendLabel #closeLabel[state='hover'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#friendLabel #closeLabel[state='pressed'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#friendLabel #closeLabel[state='select_normal'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#friendLabel #closeLabel[state='select_hover'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#friendLabel #closeLabel[state='select_pressed'] {
+    border-image: url(:/res/tipclose.png);
+}
+
+#applyConfirmWid #confirmBtn[state='normal']  {
+    background: #f0f0f0;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#applyConfirmWid #confirmBtn[state='hover'] {
+    background: #d2d2d2;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#applyConfirmWid #confirmBtn[state='press'] {
+    background: #c6c6c6;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#applyConfirmWid #cancelBtn[state='normal']  {
+    background: #f0f0f0;
+    color: #2e2f30;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#applyConfirmWid #cancelBtn[state='hover'] {
+    background: #d2d2d2;
+    color: #2e2f30;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+#applyConfirmWid #cancelBtn[state='press'] {
+    background: #c6c6c6;
+    color: #2e2f30;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}

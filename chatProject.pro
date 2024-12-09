@@ -55,7 +55,10 @@ SOURCES += \
     searchlist.cpp \
     userdata.cpp \
     adduseritem.cpp \
-    searchresultdialog.cpp
+    searchresultdialog.cpp \
+    applyfriend.cpp \
+    clickoncelabel.cpp \
+    friendlabel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -87,7 +90,10 @@ HEADERS += \
     searchlist.h \
     userdata.h \
     adduseritem.h \
-    searchresultdialog.h
+    searchresultdialog.h \
+    applyfriend.h \
+    clickoncelabel.h \
+    friendlabel.h
 
 FORMS += \
         mainwindow.ui \
@@ -99,7 +105,9 @@ FORMS += \
     loadingdialog.ui \
     chatpage.ui \
     adduseritem.ui \
-    searchresultdialog.ui
+    searchresultdialog.ui \
+    applyfriend.ui \
+    friendlabel.ui
 
 RESOURCES += \
     resource.qrc

@@ -27,6 +27,8 @@ extern std::function<void(QWidget*)> refresh;   // 用来刷新qss
 
 extern std::function<QString(QString)> xorString;   // 对输入字符串进行异或操作加密密码
 
+extern QString gate_url_prefix; // 设置一下gate url的前缀，在cpp文件中定义
+
 enum ReqId{ // 记录几个http请求的功能
     ID_GET_VARIFY_CODE = 1001,  //获取验证码
     ID_REG_USER = 1002,     //注册用户
@@ -99,7 +101,10 @@ struct MsgInfo{     // 要发送的消息的信息
     QPixmap pixmap;     // 图片或者文件的缩略图
 };
 
-extern QString gate_url_prefix; // 设置一下gate url的前缀，在cpp文件中定义
+// 申请好友标签输入最低长度
+const int MIN_APPLY_LABEL_EDIT_LEN = 40;
+const QString add_prefix = "添加标签：";
+const int tip_offset = 5;
 
 
 #endif // GLOBAL_H
