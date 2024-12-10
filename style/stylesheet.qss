@@ -112,10 +112,6 @@ background-color:rgb(255,255,255)
     outline:none;
 }
 
-ChatUserWid {
-    background-color:rgb(247,247,247);
-    border: none;
-}
 
 #msgLabel{                  /* 设置用户条目中的消息标签 */
     color:rgb(153,153,153);
@@ -581,4 +577,48 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
     font-size: 16px; /* 设置字体大小 */
     font-family: "Microsoft YaHei"; /* 设置字体 */
     border-radius: 20px; /* 设置圆角 */
+}
+
+#contactList {
+    background-color: rgb(247,247,248);
+    border: none;
+}
+
+#contactList::item:selected {
+    background-color: #d3d7d4;
+    border: none;
+    outline: none;
+}
+
+#contactList::item:hover {
+    background-color: rgb(206,207,208);
+    border: none;
+    outline: none;
+}
+
+#contactList::focus {
+    border: none;
+    outline: none;
+}
+
+
+#GroupTipItem {
+    background-color: #eaeaea;
+    border: none;
+}
+
+#GroupTipItem QLabel{
+    color: #2e2f30;
+    font-size: 12px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border: none;
+}
+
+#contactList #new_friend_item {
+     border-bottom: 1px solid #eaeaea;
+}
+
+#LineItem {
+    background-color:rgb(247,247,247);
+    border: none;
 }

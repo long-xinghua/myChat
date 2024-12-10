@@ -81,6 +81,8 @@ enum ListItemType{          // 自定义ChatUserItem的几种类型
     ADD_USER_TIP_ITEM,  // 提示添加用户
     INVALID_ITEM,       // 无效条目
     GROUP_TIP_ITEM,     // 分组提示条目
+    LINE_ITEM,          // 分割线
+    APPLY_FRIEND_ITEM,  // 好友申请
 };
 
 enum ChatRole{          // 当前对话widget所属角色
@@ -105,6 +107,11 @@ struct MsgInfo{     // 要发送的消息的信息
 const int MIN_APPLY_LABEL_EDIT_LEN = 40;
 const QString add_prefix = "添加标签：";
 const int tip_offset = 5;
+
+
+extern std::vector<QString> heads;
+extern std::vector<QString> strs;
+extern std::vector<QString> names;
 
 
 #endif // GLOBAL_H

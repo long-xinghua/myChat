@@ -58,7 +58,10 @@ SOURCES += \
     searchresultdialog.cpp \
     applyfriend.cpp \
     clickoncelabel.cpp \
-    friendlabel.cpp
+    friendlabel.cpp \
+    contactuserlist.cpp \
+    contactuseritem.cpp \
+    grouptipitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -93,7 +96,10 @@ HEADERS += \
     searchresultdialog.h \
     applyfriend.h \
     clickoncelabel.h \
-    friendlabel.h
+    friendlabel.h \
+    contactuserlist.h \
+    contactuseritem.h \
+    grouptipitem.h
 
 FORMS += \
         mainwindow.ui \
@@ -107,7 +113,9 @@ FORMS += \
     adduseritem.ui \
     searchresultdialog.ui \
     applyfriend.ui \
-    friendlabel.ui
+    friendlabel.ui \
+    contactuseritem.ui \
+    grouptipitem.ui
 
 RESOURCES += \
     resource.qrc

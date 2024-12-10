@@ -237,7 +237,7 @@
        <widget class="SearchList" name="searchList"/>
       </item>
       <item>
-       <widget class="QListWidget" name="contactList"/>
+       <widget class="ContactUserList" name="contactList"/>
       </item>
      </layout>
     </widget>
@@ -285,6 +285,11 @@
    <class>SearchList</class>
    <extends>QListWidget</extends>
    <header location="global">searchlist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ContactUserList</class>
+   <extends>QListWidget</extends>
+   <header location="global">contactuserlist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

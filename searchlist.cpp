@@ -96,7 +96,7 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
     QWidget* w = this->itemWidget(item);
     // 将w转成ListItemBase类型
     ListItemBase* myItem = qobject_cast<ListItemBase*>(w);
-    // 判断是否为空
+    // 转换失败会返回空指针
     if(!myItem){
         qDebug()<<"点击了空部件";
         return;

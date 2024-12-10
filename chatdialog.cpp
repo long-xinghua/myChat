@@ -81,6 +81,8 @@ ChatDialog::~ChatDialog()
     delete ui;
 }
 
+
+// 用于测试的数据
 std::vector<QString> heads = {
     ":/res/head_1.jpg",
     ":/res/head_2.jpg",

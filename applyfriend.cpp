@@ -4,8 +4,8 @@
 #include "usermgr.h"
 #include "tcpmgr.h"
 
-ApplyFriend::ApplyFriend(QWidget *parent) : _label_point(2,6),
-    QDialog(parent),
+ApplyFriend::ApplyFriend(QWidget *parent) :
+    QDialog(parent), _label_point(2,6),
     ui(new Ui::ApplyFriend)
 {
     ui->setupUi(this);
@@ -482,6 +482,8 @@ void ApplyFriend::slotAddFirendLabelByClickTip(QString text)
 void ApplyFriend::slotApplySure()
 {
     qDebug()<<"按下添加好友按钮";
+    this->hide();
+    deleteLater();
 }
 
 void ApplyFriend::slotApplyCancel()
