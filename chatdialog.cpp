@@ -43,7 +43,7 @@ ChatDialog::ChatDialog(QWidget *parent) :
         showList(_mode);            // 隐藏搜索列表
     });
 
-    showList(_mode);    // 默认情况下为聊天模式，隐藏搜索列表
+
 
     connect(ui->chatUserList, &ChatUserList::sig_loading_chat_user, this, &ChatDialog::slot_loading_chat_user);
 
@@ -70,6 +70,9 @@ ChatDialog::ChatDialog(QWidget *parent) :
 
     // 安装事件过滤器，手动捕获一些事件,如检测鼠标点击位置判断是否清除搜索框
     this->installEventFilter(this);
+
+    //showList(_mode);    // 默认情况下为聊天模式，隐藏搜索列表
+    emit ui->sideChatLabel->clicked(ui->sideChatLabel); // 默认开始时为聊天界面，相当于先点击了一次聊天标签
 
 
     // 下面这里测试用
@@ -226,7 +229,7 @@ void ChatDialog::slot_sideWid_clicked(StateWidget *w)
                 _mode = ChatUIMode::ChatMode;
             }
             else if(w == ui->sideContactLabel){
-                ui->stackedWidget->setCurrentWidget(ui->friendRequestPage); // 如果点击的是sideContactLabel就把右侧切换到好友请求页面
+                ui->stackedWidget->setCurrentWidget(ui->friendApplyPage); // 如果点击的是sideContactLabel就把右侧切换到好友请求页面
                 _mode = ChatUIMode::ContactMode;
             }
 

@@ -245,10 +245,10 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="ChatPage" name="chatPage"/>
-     <widget class="QWidget" name="friendRequestPage"/>
+     <widget class="ApplyFriendPage" name="friendApplyPage"/>
     </widget>
    </item>
   </layout>
@@ -290,6 +290,12 @@
    <class>ContactUserList</class>
    <extends>QListWidget</extends>
    <header location="global">contactuserlist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ApplyFriendPage</class>
+   <extends>QWidget</extends>
+   <header location="global">applyfriendpage.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

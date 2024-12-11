@@ -61,7 +61,10 @@ SOURCES += \
     friendlabel.cpp \
     contactuserlist.cpp \
     contactuseritem.cpp \
-    grouptipitem.cpp
+    grouptipitem.cpp \
+    applyfriendpage.cpp \
+    applyfrienditem.cpp \
+    applyfriendlist.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -99,7 +102,10 @@ HEADERS += \
     friendlabel.h \
     contactuserlist.h \
     contactuseritem.h \
-    grouptipitem.h
+    grouptipitem.h \
+    applyfriendpage.h \
+    applyfrienditem.h \
+    applyfriendlist.h
 
 FORMS += \
         mainwindow.ui \
@@ -115,7 +121,9 @@ FORMS += \
     applyfriend.ui \
     friendlabel.ui \
     contactuseritem.ui \
-    grouptipitem.ui
+    grouptipitem.ui \
+    applyfriendpage.ui \
+    applyfrienditem.ui
 
 RESOURCES += \
     resource.qrc

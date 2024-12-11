@@ -622,3 +622,70 @@ LoadingDialog{              /* 给加载对话框设置背景颜色*/
     background-color:rgb(247,247,247);
     border: none;
 }
+
+ApplyFriendPage #friendApplyLabel {
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    font-weight: normal;
+}
+
+ApplyFriendPage #friendApplyWid {
+    background-color: #f1f2f3;
+    border-bottom: 1px solid #ede9e7;
+}
+
+ApplyFriendPage #applyFriendList {
+    background-color: #f1f2f3;
+    border-left: 1px solid #ede9e7;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+ApplyFriendItem {
+    background-color: #f1f2f3;
+    border-bottom: 2px solid #dbd9d9;
+}
+
+ApplyFriendItem #userChatLabel{
+    color: #a2a2a2;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+}
+
+ApplyFriendItem #addButton[state='normal'] {
+    background-color: #d3d7d4;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+ApplyFriendItem #addButton[state='hover'] {
+    background-color: #D3D3D3;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+ApplyFriendItem #addButton[state='press'] {
+    background-color: #BEBEBE;
+    color: #2cb46e;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+ApplyFriendItem #doneLabel{
+    color: rgb(153,153,153);
+    font-size: 12px;
+    font-family: "Microsoft YaHei";
+}
+
+ApplyFriendItem #userNameLabel{
+    color: rgb(0,0,0);
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+}
+}

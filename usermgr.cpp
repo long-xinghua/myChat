@@ -25,6 +25,11 @@ void UserMgr::setToken(QString token)
     _token = token;
 }
 
+std::vector<std::shared_ptr<ApplyInfo> > UserMgr::getApplyList()
+{
+    return _applyList;
+}
+
 QString UserMgr::getName()
 {
     return _name;

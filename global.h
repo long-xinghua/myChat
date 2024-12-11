@@ -108,7 +108,7 @@ const int MIN_APPLY_LABEL_EDIT_LEN = 40;
 const QString add_prefix = "添加标签：";
 const int tip_offset = 5;
 
-
+// 测试用数据，定义在chatdialog.cpp
 extern std::vector<QString> heads;
 extern std::vector<QString> strs;
 extern std::vector<QString> names;

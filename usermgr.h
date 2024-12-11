@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include "singleton.h"
+#include "userdata.h"
+#include <vector>
 
 
 /***********************************************
@@ -25,6 +27,7 @@ public:
     void setName(QString name);
     void setUid(int uid);
     void setToken(QString token);
+    std::vector<std::shared_ptr<ApplyInfo>> getApplyList();
 
     QString getName();
     int getUid();
@@ -34,6 +37,7 @@ private:
     QString _name;
     QString _token;
     int _uid;
+    std::vector<std::shared_ptr<ApplyInfo>> _applyList; // 保存该用户收到的好友申请信息
 
 
 signals:

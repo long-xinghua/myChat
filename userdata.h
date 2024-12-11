@@ -40,16 +40,16 @@ struct ApplyInfo {
         :_uid(uid),_name(name),_desc(desc),
         _iconPath(iconPath),_nick(nick),_sex(sex),_status(status){}
 
-    void SetIcon(QString head){
+    void setIcon(QString head){
         _iconPath = head;
     }
     int _uid;
     QString _name;
-    QString _desc;
+    QString _desc;          // 一些描述性信息
     QString _iconPath;
     QString _nick;
     int _sex;
-    int _status;
+    int _status;            // 记录该申请是否被通过了
 };
 
 //
