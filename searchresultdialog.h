@@ -15,21 +15,21 @@
 ***********************************************/
 
 namespace Ui {
-class searchResultDialog;
+class SearchResultDialog;
 }
 
-class searchResultDialog : public QDialog
+class SearchResultDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit searchResultDialog(QWidget *parent = 0);
-    ~searchResultDialog();
+    explicit SearchResultDialog(QWidget *parent = 0);
+    ~SearchResultDialog();
 
-    void setSearchInfo(std::shared_ptr<SearchInfo> si);
+    void setSearchInfo(std::shared_ptr<SearchInfo> si);     // 给对话框设置用户信息
 
 private:
-    Ui::searchResultDialog *ui;
+    Ui::SearchResultDialog *ui;
 
     std::shared_ptr<SearchInfo> _si;    // 保存用户信息
     QWidget* _parent;                    // 用于给父窗口传递信息

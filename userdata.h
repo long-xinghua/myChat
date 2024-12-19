@@ -13,15 +13,17 @@
 ***********************************************/
 
 
+// 存放从服务器搜索得到的用户信息
 class SearchInfo
 {
 public:
-    SearchInfo(int uid, QString name, QString nick, QString desc, int sex);
+    SearchInfo(int uid, QString name, QString nick, QString desc, int sex, QString icon);
     int _uid;
     QString _name;
     QString _nick;
     QString _desc;
     int _sex;
+    QString _icon;
 };
 
 // 添加对方为好友记录的信息
@@ -36,17 +38,17 @@ public:
 // 收到好友申请时记录对方的信息
 struct ApplyInfo {
     ApplyInfo(int uid, QString name, QString desc,
-        QString iconPath, QString nick, int sex, int status)
+        QString icon, QString nick, int sex, int status)
         :_uid(uid),_name(name),_desc(desc),
-        _iconPath(iconPath),_nick(nick),_sex(sex),_status(status){}
+        _icon(icon),_nick(nick),_sex(sex),_status(status){}
 
     void setIcon(QString head){
-        _iconPath = head;
+        _icon = head;
     }
     int _uid;
     QString _name;
     QString _desc;          // 一些描述性信息
-    QString _iconPath;
+    QString _icon;
     QString _nick;
     int _sex;
     int _status;            // 记录该申请是否被通过了
@@ -54,39 +56,39 @@ struct ApplyInfo {
 
 //
 struct AuthInfo{
-    AuthInfo(int uid, QString name, QString nickname, QString iconPath, int sex):
-        _uid(uid), _name(name), _nickname(nickname), _iconPath(iconPath), _sex(sex){}
+    AuthInfo(int uid, QString name, QString nick, QString icon, int sex):
+        _uid(uid), _name(name), _nick(nick), _icon(icon), _sex(sex){}
     int _uid;
     QString _name;
-    QString _nickname;
-    QString _iconPath; 
+    QString _nick;
+    QString _icon;
     int _sex;
 };
 
 struct AuthRsp{
-    AuthRsp(int peer_uid, QString peer_name, QString peer_nickname, QString peer_iconPath, int peer_sex):
-        _uid(peer_uid), _name(peer_name), _nickname(peer_nickname), _iconPath(peer_iconPath), _sex(peer_sex){}
+    AuthRsp(int peer_uid, QString peer_name, QString peer_nick, QString peer_icon, int peer_sex):
+        _uid(peer_uid), _name(peer_name), _nick(peer_nick), _icon(peer_icon), _sex(peer_sex){}
     int _uid;
     QString _name;
-    QString _nickname;
-    QString _iconPath;
+    QString _nick;
+    QString _icon;
     int _sex;
 };
 
 struct UserInfo{
-    UserInfo(int uid, QString name, QString nickname, QString iconPath, int sex):
-        _uid(uid), _name(name), _nickname(nickname), _iconPath(iconPath), _sex(sex){}
+    UserInfo(int uid, QString name, QString nick, QString icon, int sex):
+        _uid(uid), _name(name), _nick(nick), _icon(icon), _sex(sex){}
     UserInfo(std::shared_ptr<AuthInfo> auth):
-        _uid(auth->_uid), _name(auth->_name), _nickname(auth->_nickname), _iconPath(auth->_iconPath), _sex(auth->_sex){}
+        _uid(auth->_uid), _name(auth->_name), _nick(auth->_nick), _icon(auth->_icon), _sex(auth->_sex){}
     UserInfo(std::shared_ptr<AuthRsp> auth):
-        _uid(auth->_uid), _name(auth->_name), _nickname(auth->_nickname), _iconPath(auth->_iconPath), _sex(auth->_sex){}
-    UserInfo(int uid, QString name, QString iconPath):
-        _uid(uid), _name(name), _nickname(_name), _iconPath(iconPath), _sex(0){}
+        _uid(auth->_uid), _name(auth->_name), _nick(auth->_nick), _icon(auth->_icon), _sex(auth->_sex){}
+    UserInfo(int uid, QString name, QString icon):
+        _uid(uid), _name(name), _nick(_name), _icon(icon), _sex(0){}
 
     int _uid;
     QString _name;
-    QString _nickname;
-    QString _iconPath;
+    QString _nick;
+    QString _icon;
     int _sex;
 };
 

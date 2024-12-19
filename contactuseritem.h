@@ -28,7 +28,7 @@ public:
     QSize sizeHint();          // 返回控件默认大小
     void setInfo(std::shared_ptr<AuthInfo> authInfo);
     void setInfo(std::shared_ptr<AuthRsp> authResp);
-    void setInfo(int uid, QString name, QString iconPath);
+    void setInfo(int uid, QString name, QString icon);
     void showRedPoint(bool show = false);
 
 private:

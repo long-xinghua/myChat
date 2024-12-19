@@ -5,7 +5,8 @@
 #include "searchresultdialog.h"
 #include "tcpmgr.h"
 #include "customizededit.h"
-//#include "findfaildlg.h"
+#include "searchfaileddialog.h"
+#include <QJsonDocument>
 
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_searchResultDlg(nullptr), _search_edit(nullptr), _send_pending(false)
@@ -33,7 +34,7 @@ void SearchList::closeFindDlg()
 
 void SearchList::setSearchEdit(QWidget *edit)
 {
-
+    _search_edit = edit;
 }
 
 bool SearchList::eventFilter(QObject *watched, QEvent *event)
@@ -66,7 +67,19 @@ bool SearchList::eventFilter(QObject *watched, QEvent *event)
 
 void SearchList::waitPending(bool pending)
 {
-
+    if(pending){    // 说明现在处于发送请求中的状态
+        _loadingDialog = new LoadingDialog(this);
+        _loadingDialog->setModal(true);
+        //qDebug()<<"展示加载对话框";
+        _loadingDialog->show();
+        //qDebug()<<"_loadingDialog->show()";
+        _send_pending = pending;
+    }
+    else{           // 未处于请求状态
+        _loadingDialog->hide();
+        _loadingDialog->deleteLater();
+        _send_pending = pending;
+    }
 }
 
 void SearchList::addTipItem()
@@ -108,28 +121,32 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
         return;
     }
     else if(itemType == ListItemType::ADD_USER_TIP_ITEM){     // 添加/查找好友条目
-//        if(_send_pending) {
-//            return;
-//        }
-//        waitPending(true);
-//        auto search_edit = dynamic_cast<CustomizeEdit*>(_search_edit);
-//        auto uid_str = search_edit->text();
-//        //此处发送请求给server
-//        QJsonObject jsonObj;
-//        jsonObj["uid"] = uid_str;
+        if(_send_pending) { // 如果正在查找中就直接返回，防止重复点击
+            return;
+        }
+        waitPending(true);
+        // 使用_search_edit前需初始化，否则会崩
+        if(_search_edit == nullptr){
+            qDebug()<<"_search_edit为空！";
+            return;
+        }
+        auto search_edit = dynamic_cast<CustomizedEdit*>(_search_edit);
+        auto uid_str = search_edit->text();     // 实际上搜索的可能是uid也可能是昵称
+        //此处发送请求给server
+        QJsonObject jsonObj;
+        jsonObj["uid"] = uid_str;               // 将uid(或昵称)加入到发送信息里
 
-//        QJsonDocument doc(jsonObj);
-//        QString jsonString = doc.toJson(QJsonDocument::Indented);
+        QJsonDocument doc(jsonObj);
+        QByteArray jsonString = doc.toJson(QJsonDocument::Compact);    // 发送压缩的json，减少空格，降低数据量
 
-//        //发送tcp请求给chat server
-//        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_SEARCH_USER_REQ, jsonString);
-//        return;
+        //发送tcp请求给chat server
+        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_SEARCH_USER_REQ, jsonString);
 
-        // 还没连接服务器，简单弹出对话框做个测试
-        _searchResultDlg = std::make_shared<searchResultDialog>(this);
-        std::shared_ptr<SearchInfo> si = std::make_shared<SearchInfo>(0, "张三", "歪比巴卜", "hello", 1);
-        std::dynamic_pointer_cast<searchResultDialog>(_searchResultDlg)->setSearchInfo(si);
-        _searchResultDlg->show();
+//        // 还没连接服务器，简单弹出对话框做个测试
+//        _searchResultDlg = std::make_shared<SearchResultDialog>(this);
+//        std::shared_ptr<SearchInfo> si = std::make_shared<SearchInfo>(0, "张三", "歪比巴卜", "hello", 1);
+//        std::dynamic_pointer_cast<SearchResultDialog>(_searchResultDlg)->setSearchInfo(si);
+//        _searchResultDlg->show();
         return;
 
     }
@@ -140,5 +157,15 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
 
 void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)
 {
-
+    waitPending(false);     // 搜索状态结束
+    if(si == nullptr){      // 说明搜索失败
+        _searchResultDlg = std::make_shared<SearchFailedDialog>(this);
+    }
+    else{                   // 搜索成功
+        // 判断是否已经添加了好友
+        // todo...
+        _searchResultDlg = std::make_shared<SearchResultDialog>(this);
+        std::dynamic_pointer_cast<SearchResultDialog>(_searchResultDlg)->setSearchInfo(si);
+    }
+    _searchResultDlg->show();
 }

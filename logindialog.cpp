@@ -166,7 +166,7 @@ bool LoginDialog::checkPassValid()
     // 创建一个正则表达式对象，按照上述密码要求
     // 这个正则表达式解释：
     // ^[a-zA-Z0-9!@#$%^&*]{6,15}$ 密码长度至少6，可以是字母、数字和特定的特殊字符
-    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*]{6,15}$");
+    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*.]{6,15}$");
     bool match = regExp.match(pass).hasMatch();
     if(!match){
         //提示字符非法
@@ -249,7 +249,7 @@ void LoginDialog::slot_tcp_con_finish(bool success)
     jsonObj["token"] = _token;
     // 创建QJsonDocument对象将json对象转换成json字符串，方便传输
     QJsonDocument jsonDoc(jsonObj);
-    QString jsonString = jsonDoc.toJson(QJsonDocument::Indented);
+    QByteArray jsonString = jsonDoc.toJson(QJsonDocument::Indented);
 
     // 给tcp服务器发送请求，进行逻辑上的登录操作
     emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);

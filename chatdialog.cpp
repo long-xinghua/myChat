@@ -74,6 +74,8 @@ ChatDialog::ChatDialog(QWidget *parent) :
     //showList(_mode);    // 默认情况下为聊天模式，隐藏搜索列表
     emit ui->sideChatLabel->clicked(ui->sideChatLabel); // 默认开始时为聊天界面，相当于先点击了一次聊天标签
 
+    // 给searchList传入searchEdit
+    ui->searchList->setSearchEdit(ui->searchEdit);
 
     // 下面这里测试用
     addUserListTest();

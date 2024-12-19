@@ -66,7 +66,7 @@ void ApplyFriendPage::paintEvent(QPaintEvent *event)
 
 void ApplyFriendPage::loadApplyList()
 {
-    //添加好友申请
+    //添加好友申请，这里获取的是实际数据
     auto apply_list = UserMgr::GetInstance()->getApplyList();
     for(auto &apply: apply_list){
 //        int randomValue = QRandomGenerator::global()->bounded(100); // 生成0到99之间的随机整数
@@ -106,7 +106,7 @@ void ApplyFriendPage::loadApplyList()
 
         auto *apply_item = new ApplyFriendItem();
         auto apply = std::make_shared<ApplyInfo>(0, names[name_i], strs[str_i],
-                                    heads[head_i], names[name_i], 0, 1);
+                                    heads[head_i], names[name_i], 0, std::rand()%2);    // 最后一个为status，代表是否已经通过申请
         apply_item->setInfo(apply);
         QListWidgetItem *item = new QListWidgetItem;
         //qDebug()<<"chat_user_wid sizeHint is " << chat_user_wid->sizeHint();

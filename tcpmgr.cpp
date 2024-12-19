@@ -143,6 +143,41 @@ void TcpMgr::initHandlers()
         emit sig_switch_chatDlg();
         qDebug()<<"跳转到登陆界面";
     });
+
+    // 查找用户请求回包的回调
+    _handlers.insert(ReqId::ID_SEARCH_USER_RSP, [this](ReqId id, int len, QByteArray data){
+        Q_UNUSED(len);  // 告诉Qt我不会使用len
+        qDebug()<<"request id is: "<<id<<"    data is: "<<data;
+        // 将QByteArray转为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查是否解析成功
+        if(jsonDoc.isNull() || !jsonDoc.isObject()){
+            qDebug()<<"json解析失败";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if(!jsonObj.contains("error")){
+            qDebug()<<"json中没有error字段";
+            int err = ErrorCodes::ERR_JSON;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug()<<"查找用户失败，错误代码为："<<err;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        std::shared_ptr<SearchInfo> searchInfo = std::make_shared<SearchInfo>(jsonObj["uid"].toInt(), jsonObj["name"].toString(), jsonObj["nick"].toString(),
+                                                                              jsonObj["desc"].toString(), jsonObj["sex"].toInt(), jsonObj["icon"].toString());
+        // 发送信号提醒搜索已完成
+        emit sig_user_search(searchInfo);
+    });
 }
 
 void TcpMgr::handleMsg(ReqId id, int len, QByteArray data)
@@ -157,18 +192,17 @@ void TcpMgr::handleMsg(ReqId id, int len, QByteArray data)
 
 void TcpMgr::slot_tcp_connect(ServerInfo si)
 {
-    qDebug()<<"尝试进行tcp连接";
+    qDebug()<<"尝试进行tcp连接,地址："<<si.host<<":"<<si.port;
     _host = si.host;
     _port = static_cast<quint16>(si.port.toInt());
     _socket.connectToHost(_host, _port);    // 连接到服务器，连接过程是异步的，连接情况通过socket发出信号（connected或errorOccurred）来传递
 }
 
-void TcpMgr::slot_send_data(ReqId reqId, QString data)
+void TcpMgr::slot_send_data(ReqId reqId, QByteArray data)
 {
     uint16_t id = reqId;
     quint16 len = static_cast<quint16>(data.size());
-    // 将data转化为UTF-8编码的字节流
-    QByteArray dataBody = data.toUtf8();
+
     // 创建一个字节流block来储存要发送的内容
     QByteArray block;
     // 使用QDataStream来向block中写入数据
@@ -179,7 +213,6 @@ void TcpMgr::slot_send_data(ReqId reqId, QString data)
     //先按作者的来看看吧
     out<<id<<len;
     block.append(data);
-    //out<<id<<len<<dataBody;
     // 向服务器发送数据
     _socket.write(block);
 

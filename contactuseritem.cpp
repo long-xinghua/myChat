@@ -28,7 +28,7 @@ void ContactUserItem::setInfo(std::shared_ptr<AuthInfo> authInfo)
     // 获取_userInfo
     _userInfo = std::make_shared<UserInfo>(authInfo);
     // 设置item的图标
-    QPixmap pixmap(_userInfo->_iconPath);
+    QPixmap pixmap(_userInfo->_icon);
     ui->iconLabel->setPixmap(pixmap.scaled(ui->iconLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->iconLabel->setScaledContents(true);
     // 设置item的文本
@@ -40,19 +40,19 @@ void ContactUserItem::setInfo(std::shared_ptr<AuthRsp> authResp)
     // 获取_userInfo
     _userInfo = std::make_shared<UserInfo>(authResp);
     // 设置item的图标
-    QPixmap pixmap(_userInfo->_iconPath);
+    QPixmap pixmap(_userInfo->_icon);
     ui->iconLabel->setPixmap(pixmap.scaled(ui->iconLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->iconLabel->setScaledContents(true);
     // 设置item的文本
     ui->userNameLabel->setText(_userInfo->_name);
 }
 
-void ContactUserItem::setInfo(int uid, QString name, QString iconPath)
+void ContactUserItem::setInfo(int uid, QString name, QString icon)
 {
     // 获取_userInfo
-    _userInfo = std::make_shared<UserInfo>(uid, name, iconPath);
+    _userInfo = std::make_shared<UserInfo>(uid, name, icon);
     // 设置item的图标
-    QPixmap pixmap(_userInfo->_iconPath);
+    QPixmap pixmap(_userInfo->_icon);
     ui->iconLabel->setPixmap(pixmap.scaled(ui->iconLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->iconLabel->setScaledContents(true);
     // 设置item的文本

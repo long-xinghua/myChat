@@ -40,10 +40,10 @@ private:
     QMap<ReqId, std::function<void(ReqId id, int len, QByteArray data)>> _handlers; // 储存回调函数
 public slots:
     void slot_tcp_connect(ServerInfo);  // 尝试进行tcp连接的槽函数
-    void slot_send_data(ReqId reqId, QString data);    // 发送数据成功调用该函数
+    void slot_send_data(ReqId reqId, QByteArray data);    // 发送数据成功调用该函数
 signals:
     void sig_con_success(bool success);                 // 连接阶段结束触发该信号,true代表连接成功，false代表连接失败
-    void sig_send_data(ReqId id, QString data);         // 发送数据时触发该信号
+    void sig_send_data(ReqId id, QByteArray data);         // 发送数据时触发该信号
     void sig_switch_chatDlg();                          // 切换到聊天界面
     void sig_login_failed(int);                         // 登陆失败信号（连接成功但登陆失败）, 参数为错误代码
     void sig_user_search(std::shared_ptr<SearchInfo>);  // 搜索用户信号

@@ -4,9 +4,9 @@
 #include <QDebug>
 #include "applyfriend.h"
 
-searchResultDialog::searchResultDialog(QWidget *parent) :
+SearchResultDialog::SearchResultDialog(QWidget *parent) :
     QDialog(parent), _parent(parent),
-    ui(new Ui::searchResultDialog)
+    ui(new Ui::SearchResultDialog)
 {
     ui->setupUi(this);
 
@@ -28,19 +28,19 @@ searchResultDialog::searchResultDialog(QWidget *parent) :
 
 }
 
-searchResultDialog::~searchResultDialog()
+SearchResultDialog::~SearchResultDialog()
 {
     qDebug()<<"查找结果对话框析构";
     delete ui;
 }
 
-void searchResultDialog::setSearchInfo(std::shared_ptr<SearchInfo> si)
+void SearchResultDialog::setSearchInfo(std::shared_ptr<SearchInfo> si)
 {
     _si=si;
     ui->nameLabel->setText(si->_name);
 }
 
-void searchResultDialog::on_addFriendButton_clicked()
+void SearchResultDialog::on_addFriendButton_clicked()
 {
     this->hide();
     auto applyFriend = new ApplyFriend(_parent);

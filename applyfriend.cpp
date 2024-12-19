@@ -3,6 +3,7 @@
 #include <QScrollBar>
 #include "usermgr.h"
 #include "tcpmgr.h"
+#include <QJsonDocument>
 
 ApplyFriend::ApplyFriend(QWidget *parent) :
     QDialog(parent), _label_point(2,6),
@@ -482,6 +483,31 @@ void ApplyFriend::slotAddFirendLabelByClickTip(QString text)
 void ApplyFriend::slotApplySure()
 {
     qDebug()<<"按下添加好友按钮";
+    // 发送好友申请
+    QJsonObject jsonObj;
+    jsonObj["uid"] = UserMgr::GetInstance()->getUid();
+
+    // 设置申请信息
+    QString applyMsg = ui->nameEdit->text();
+    if(applyMsg.isEmpty()){                         // 如果没填申请信息就把占位符（即当前用户名）填进去
+        applyMsg = ui->nameEdit->placeholderText();
+    }
+    jsonObj["applyMsg"] = applyMsg;
+
+    // 设置备注名
+    QString remark = ui->remarkEdit->text();
+    if(remark.isEmpty()){
+        remark = ui->remarkEdit->placeholderText();
+    }
+    jsonObj["remark"] = remark;         // 给对方的备注
+    jsonObj["to_uid"] = _si->_uid;      // 对方uid
+
+    QJsonDocument doc(jsonObj);
+    QByteArray jsonArray = doc.toJson(QJsonDocument::Compact);
+
+    TcpMgr::GetInstance()->sig_send_data(ReqId::ID_ADD_FRIEND_REQ, jsonArray);
+
+
     this->hide();
     deleteLater();
 }

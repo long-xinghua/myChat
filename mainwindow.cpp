@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_switch_chatDlg, this, &MainWindow::slotSwitch2chat);
 
     // 测试用，直接跳转到聊天界面
-    emit TcpMgr::GetInstance()->sig_switch_chatDlg();
+    //emit TcpMgr::GetInstance()->sig_switch_chatDlg();
 }
 
 

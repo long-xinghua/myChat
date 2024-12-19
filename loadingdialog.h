@@ -21,7 +21,7 @@ class LoadingDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LoadingDialog(QWidget *parent = 0);
+    explicit LoadingDialog(QWidget *parent = nullptr);
     ~LoadingDialog();
 
 private:
