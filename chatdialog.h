@@ -5,6 +5,7 @@
 #include "global.h"
 #include "statewidget.h"
 #include <QMouseEvent>
+#include "userdata.h"
 
 /***********************************************
     * @file     chatdialog.h
@@ -46,6 +47,7 @@ public slots:
     void slot_loading_chat_user();              // 在聊天列表滚动到底时加载更多联系人信息
     void slot_sideWid_clicked(StateWidget* w);  // 点击侧边栏时做一个切换的效果
     void slot_text_changed(const QString&);     // 当搜索框内容改变时显示搜索结果的预览
+    void slot_apply_friend(std::shared_ptr<AddFriendApply> applyInfo);  // TcpMgr收到新好友申请时的处理
 
 };
 

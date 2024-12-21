@@ -487,12 +487,12 @@ void ApplyFriend::slotApplySure()
     QJsonObject jsonObj;
     jsonObj["uid"] = UserMgr::GetInstance()->getUid();
 
-    // 设置申请信息
-    QString applyMsg = ui->nameEdit->text();
-    if(applyMsg.isEmpty()){                         // 如果没填申请信息就把占位符（即当前用户名）填进去
-        applyMsg = ui->nameEdit->placeholderText();
+    // 设置申请人名字
+    QString applyName = ui->nameEdit->text();
+    if(applyName.isEmpty()){                         // 如果没填申请信息就把占位符（即当前用户名）填进去
+        applyName = ui->nameEdit->placeholderText();
     }
-    jsonObj["applyMsg"] = applyMsg;
+    jsonObj["applyName"] = applyName;
 
     // 设置备注名
     QString remark = ui->remarkEdit->text();

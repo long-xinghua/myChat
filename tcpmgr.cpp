@@ -108,7 +108,7 @@ void TcpMgr::initHandlers()
     // 收到登录请求的ChatServer服务器回包时调用这个回调
     _handlers.insert(ID_CHAT_LOGIN_RSP, [this](ReqId id, int len, QByteArray data){
         Q_UNUSED(len);  // 告诉Qt我不会使用len
-        qDebug()<<"request id is: "<<id<<"    data is: "<<data;
+        qDebug()<<"request id is: "<<id<<", data is: "<<data;
         // 将QByteArray转为QJsonDocument
         QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
 
@@ -147,7 +147,7 @@ void TcpMgr::initHandlers()
     // 查找用户请求回包的回调
     _handlers.insert(ReqId::ID_SEARCH_USER_RSP, [this](ReqId id, int len, QByteArray data){
         Q_UNUSED(len);  // 告诉Qt我不会使用len
-        qDebug()<<"request id is: "<<id<<"    data is: "<<data;
+        qDebug()<<"request id is: "<<id<<", data is: "<<data;
         // 将QByteArray转为QJsonDocument
         QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
 
@@ -177,6 +177,77 @@ void TcpMgr::initHandlers()
                                                                               jsonObj["desc"].toString(), jsonObj["sex"].toInt(), jsonObj["icon"].toString());
         // 发送信号提醒搜索已完成
         emit sig_user_search(searchInfo);
+    });
+
+    // 添加好友请求回包的回调
+    _handlers.insert(ReqId::ID_ADD_FRIEND_RSP, [this](ReqId id, int len, QByteArray data){
+        Q_UNUSED(len);  // 告诉Qt我不会使用len
+        qDebug()<<"request id is: "<<id<<", data is: "<<data;
+        // 将QByteArray转为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查是否解析成功
+        if(jsonDoc.isNull() || !jsonDoc.isObject()){
+            qDebug()<<"json解析失败";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if(!jsonObj.contains("error")){
+            qDebug()<<"json中没有error字段";
+            int err = ErrorCodes::ERR_JSON;
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug()<<"查找用户失败，错误代码为："<<err;
+            return;
+        }
+
+        // 申请好友的请求发送成功
+        qDebug()<<"好友申请发送成功";
+    });
+
+    // 收到好友申请提示
+    _handlers.insert(ReqId::ID_NOTIFY_ADD_FRIEND_REQ, [this](ReqId id, int len, QByteArray data){
+        Q_UNUSED(len);  // 告诉Qt我不会使用len
+        qDebug()<<"request id is: "<<id<<", data is: "<<data;
+        // 将QByteArray转为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查是否解析成功
+        if(jsonDoc.isNull() || !jsonDoc.isObject()){
+            qDebug()<<"json解析失败";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if(!jsonObj.contains("error")){
+            qDebug()<<"json中没有error字段";
+            int err = ErrorCodes::ERR_JSON;
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug()<<"新好友申请提示出错，错误代码为："<<err;
+            return;
+        }
+
+        // 取出data中的信息
+        int from_uid = jsonObj["fromUid"].toInt();
+        QString applyName = jsonObj["applyName"].toString();
+        QString desc = jsonObj["desc"].toString();
+        QString nick = jsonObj["nick"].toString();
+        int sex = jsonObj["sex"].toInt();
+        QString icon = jsonObj["icon"].toString();
+
+        auto apply_info = std::make_shared<AddFriendApply>(from_uid, applyName, desc, icon, nick, sex);
+        emit sig_firend_apply(apply_info);  // 发送收到好友申请的信号
+        qDebug()<<"收到一条好友申请";
     });
 }
 

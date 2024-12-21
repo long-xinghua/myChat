@@ -7,6 +7,7 @@
 #include "chatuserwid.h"
 #include <vector>
 #include "loadingdialog.h"
+#include "tcpmgr.h"
 
 
 ChatDialog::ChatDialog(QWidget *parent) :
@@ -76,6 +77,9 @@ ChatDialog::ChatDialog(QWidget *parent) :
 
     // 给searchList传入searchEdit
     ui->searchList->setSearchEdit(ui->searchEdit);
+
+    // 连接新好友申请的信号和槽
+    connect(TcpMgr::GetInstance().get(), TcpMgr::sig_firend_apply, this, ChatDialog::slot_apply_friend);
 
     // 下面这里测试用
     addUserListTest();
@@ -251,4 +255,14 @@ void ChatDialog::slot_text_changed(const QString& str)
     if(!str.isEmpty()){
         showList(_mode, true);      // 第二个参数为true，展示一下搜索框
     }
+}
+
+void ChatDialog::slot_apply_friend(std::shared_ptr<AddFriendApply> applyInfo)
+{
+    int from_uid = applyInfo->_from_uid;
+    QString applyName = applyInfo->_name;
+    QString desc = applyInfo->_desc;
+    QString nick = applyInfo->_nick;
+    QString icon = applyInfo->_icon;
+    int sex = applyInfo->_sex;
 }

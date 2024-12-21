@@ -26,16 +26,19 @@ public:
     QString _icon;
 };
 
-// 添加对方为好友记录的信息
+// 收到好友申请时记录对方的信息
 class AddFriendApply {
 public:
-    AddFriendApply(int from_uid, QString name, QString desc);
+    AddFriendApply(int from_uid, QString name, QString desc, QString icon, QString nick, int sex);
     int _from_uid;
     QString _name;
     QString _desc;
+    QString _icon;
+    QString _nick;
+    int _sex;
 };
 
-// 收到好友申请时记录对方的信息
+//
 struct ApplyInfo {
     ApplyInfo(int uid, QString name, QString desc,
         QString icon, QString nick, int sex, int status)

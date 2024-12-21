@@ -49,8 +49,8 @@ signals:
     void sig_user_search(std::shared_ptr<SearchInfo>);  // 搜索用户信号
 
     // 同意对方好友申请、收到对方好友申请、向对方发送好友申请的三个信号
-    void sig_auth_rsp(std::shared_ptr<AuthRsp> rsp);            // 收到对方好友申请
-    void sig_firend_apply(std::shared_ptr<AddFriendApply>);     // 向对方发送好友申请，收到同意的消息
+    void sig_auth_rsp(std::shared_ptr<AuthRsp> rsp);            // 向对方发送好友申请，收到同意的消息
+    void sig_firend_apply(std::shared_ptr<AddFriendApply>);     // 收到对方好友申请
     void sig_add_auth_apply(std::shared_ptr<AuthInfo>);         // 同意对方好友申请
 };
 

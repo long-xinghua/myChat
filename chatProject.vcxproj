@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{69C2CA0D-0655-3626-B60F-9AD7F3CF3AF3}</ProjectGuid>
+    <RootNamespace>chatProject</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <MinimumVisualStudioVersion>15.00</MinimumVisualStudioVersion>
+    <DefaultLanguage>en</DefaultLanguage>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.22621.0</WindowsTargetPlatformMinVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>Unicode</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>chatProject</PrimaryOutput>
+    <EmbedManifest>false</EmbedManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>Unicode</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>chatProject</PrimaryOutput>
+    <EmbedManifest>false</EmbedManifest>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(QtMsBuild)\qt_defaults.props" Condition="Exists('$(QtMsBuild)\qt_defaults.props')" />
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>myQt</QtInstall>
+    <QtModules>core;network;gui;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>myQt</QtInstall>
+    <QtModules>core;network;gui;widgets</QtModules>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') OR !Exists('$(QtMsBuild)\Qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">chatProject</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</PostBuildEventUseInBuild>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">chatProject</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</GenerateManifest>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;Q_BYTE_ORDER=Q_LITTLE_ENDIAN;WINAPI_FAMILY=WINAPI_FAMILY_PC_APP;WINAPI_PARTITION_PHONE_APP=1;X64;__X64__;__x64__;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>ucrt.lib;vcruntime.lib;windowscodecs.lib;WindowsApp.lib;runtimeobject.lib;OneCore.lib;$(QTDIR)\lib\libEGL.lib;$(QTDIR)\lib\libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/APPCONTAINER %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateManifest>false</GenerateManifest>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;kernel32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\chatProject.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;Q_BYTE_ORDER=Q_LITTLE_ENDIAN;WINAPI_FAMILY=WINAPI_FAMILY_PC_APP;WINAPI_PARTITION_PHONE_APP=1;X64;__X64__;__x64__;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /Y ".\config.ini" ".\.\bin" &amp; xcopy /Y /E /I ".\static" ".\.\bin\static\"</Command>
+      <Message>copy /Y ".\config.ini" ".\.\bin" &amp; xcopy /Y /E /I ".\static" ".\.\bin\static\"</Message>
+    </PostBuildEvent>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>$(Configuration)/moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(Configuration)</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtRcc>
+      <InitFuncName>resource</InitFuncName>
+      <Compression>default</Compression>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <QtRccDir>$(Configuration)</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(ProjectDir)</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <Target Name="WinDeployQt_Release|x64" Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Inputs="$(OutDir)\$(TargetName).exe" Outputs="$(TargetName).windeployqt.$(Platform).$(Configuration)">
+    <Message Text="$(QTDIR)\bin\windeployqt.exe -qmldir . -list relative -dir &quot;$(MSBuildProjectDirectory)&quot; &quot;$(OutDir)\$(TargetName).exe&quot; &gt; &quot;$(TargetName).windeployqt.$(Platform).$(Configuration)&quot;" />
+    <Exec Command="$(QTDIR)\bin\windeployqt.exe -qmldir . -list relative -dir &quot;$(MSBuildProjectDirectory)&quot; &quot;$(OutDir)\$(TargetName).exe&quot; &gt; &quot;$(TargetName).windeployqt.$(Platform).$(Configuration)&quot;" />
+  </Target>
+  <Target Name="PopulateWinDeployQtItems_Release|x64" Condition="'$(Configuration)|$(Platform)'=='Release|x64'" AfterTargets="Link" DependsOnTargets="WinDeployQt_Release|x64">
+    <ReadLinesFromFile File="$(TargetName).windeployqt.$(Platform).$(Configuration)">
+      <Output TaskParameter="Lines" ItemName="DeploymentItems" />
+    </ReadLinesFromFile>
+    <ItemGroup>
+      <None Include="@(DeploymentItems)">
+        <DeploymentContent>true</DeploymentContent>
+      </None>
+    </ItemGroup>
+  </Target>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;Q_BYTE_ORDER=Q_LITTLE_ENDIAN;WINAPI_FAMILY=WINAPI_FAMILY_PC_APP;WINAPI_PARTITION_PHONE_APP=1;X64;__X64__;__x64__;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>ucrtd.lib;vcruntimed.lib;windowscodecs.lib;WindowsApp.lib;runtimeobject.lib;OneCore.lib;$(QTDIR)\lib\libEGLd.lib;$(QTDIR)\lib\libGLESv2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/APPCONTAINER %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateManifest>false</GenerateManifest>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;kernel32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <OutputFile>$(OutDir)\chatProject.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;Q_BYTE_ORDER=Q_LITTLE_ENDIAN;WINAPI_FAMILY=WINAPI_FAMILY_PC_APP;WINAPI_PARTITION_PHONE_APP=1;X64;__X64__;__x64__;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /Y ".\config.ini" ".\.\bin" &amp; xcopy /Y /E /I ".\static" ".\.\bin\static\"</Command>
+      <Message>copy /Y ".\config.ini" ".\.\bin" &amp; xcopy /Y /E /I ".\static" ".\.\bin\static\"</Message>
+    </PostBuildEvent>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>$(Configuration)/moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(Configuration)</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtRcc>
+      <InitFuncName>resource</InitFuncName>
+      <Compression>default</Compression>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <QtRccDir>$(Configuration)</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(ProjectDir)</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <Target Name="WinDeployQt_Debug|x64" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Inputs="$(OutDir)\$(TargetName).exe" Outputs="$(TargetName).windeployqt.$(Platform).$(Configuration)">
+    <Message Text="$(QTDIR)\bin\windeployqt.exe -qmldir . -list relative -dir &quot;$(MSBuildProjectDirectory)&quot; &quot;$(OutDir)\$(TargetName).exe&quot; &gt; &quot;$(TargetName).windeployqt.$(Platform).$(Configuration)&quot;" />
+    <Exec Command="$(QTDIR)\bin\windeployqt.exe -qmldir . -list relative -dir &quot;$(MSBuildProjectDirectory)&quot; &quot;$(OutDir)\$(TargetName).exe&quot; &gt; &quot;$(TargetName).windeployqt.$(Platform).$(Configuration)&quot;" />
+  </Target>
+  <Target Name="PopulateWinDeployQtItems_Debug|x64" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" AfterTargets="Link" DependsOnTargets="WinDeployQt_Debug|x64">
+    <ReadLinesFromFile File="$(TargetName).windeployqt.$(Platform).$(Configuration)">
+      <Output TaskParameter="Lines" ItemName="DeploymentItems" />
+    </ReadLinesFromFile>
+    <ItemGroup>
+      <None Include="@(DeploymentItems)">
+        <DeploymentContent>true</DeploymentContent>
+      </None>
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <ClCompile Include="adduseritem.cpp" />
+    <ClCompile Include="applyfriend.cpp" />
+    <ClCompile Include="applyfrienditem.cpp" />
+    <ClCompile Include="applyfriendlist.cpp" />
+    <ClCompile Include="applyfriendpage.cpp" />
+    <ClCompile Include="bubbleframe.cpp" />
+    <ClCompile Include="chatdialog.cpp" />
+    <ClCompile Include="chatitembase.cpp" />
+    <ClCompile Include="chatpage.cpp" />
+    <ClCompile Include="chatuserlist.cpp" />
+    <ClCompile Include="chatuserwid.cpp" />
+    <ClCompile Include="chatview.cpp" />
+    <ClCompile Include="clickedbtn.cpp" />
+    <ClCompile Include="clickedlabel.cpp" />
+    <ClCompile Include="clickoncelabel.cpp" />
+    <ClCompile Include="contactuseritem.cpp" />
+    <ClCompile Include="contactuserlist.cpp" />
+    <ClCompile Include="customizededit.cpp" />
+    <ClCompile Include="friendlabel.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="grouptipitem.cpp" />
+    <ClCompile Include="httpmgr.cpp" />
+    <ClCompile Include="listitembase.cpp" />
+    <ClCompile Include="loadingdialog.cpp" />
+    <ClCompile Include="logindialog.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="messagetextedit.cpp" />
+    <ClCompile Include="picturebubble.cpp" />
+    <ClCompile Include="registerdialog.cpp" />
+    <ClCompile Include="resetdialog.cpp" />
+    <ClCompile Include="searchfaileddialog.cpp" />
+    <ClCompile Include="searchlist.cpp" />
+    <ClCompile Include="searchresultdialog.cpp" />
+    <ClCompile Include="statewidget.cpp" />
+    <ClCompile Include="tcpmgr.cpp" />
+    <ClCompile Include="textbubble.cpp" />
+    <ClCompile Include="timerbtn.cpp" />
+    <ClCompile Include="userdata.cpp" />
+    <ClCompile Include="usermgr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="adduseritem.h" />
+    <QtMoc Include="applyfriend.h" />
+    <QtMoc Include="applyfrienditem.h" />
+    <QtMoc Include="applyfriendlist.h" />
+    <QtMoc Include="applyfriendpage.h" />
+    <QtMoc Include="bubbleframe.h" />
+    <QtMoc Include="chatdialog.h" />
+    <QtMoc Include="chatitembase.h" />
+    <QtMoc Include="chatpage.h" />
+    <QtMoc Include="chatuserlist.h" />
+    <QtMoc Include="chatuserwid.h" />
+    <QtMoc Include="chatview.h" />
+    <QtMoc Include="clickedbtn.h" />
+    <QtMoc Include="clickedlabel.h" />
+    <QtMoc Include="clickoncelabel.h" />
+    <QtMoc Include="contactuseritem.h" />
+    <QtMoc Include="contactuserlist.h" />
+    <QtMoc Include="customizededit.h" />
+    <QtMoc Include="friendlabel.h" />
+    <ClInclude Include="global.h" />
+    <QtMoc Include="grouptipitem.h" />
+    <QtMoc Include="httpmgr.h" />
+    <QtMoc Include="listitembase.h" />
+    <QtMoc Include="loadingdialog.h" />
+    <QtMoc Include="logindialog.h" />
+    <QtMoc Include="mainwindow.h" />
+    <QtMoc Include="messagetextedit.h" />
+    <QtMoc Include="picturebubble.h" />
+    <QtMoc Include="registerdialog.h" />
+    <QtMoc Include="resetdialog.h" />
+    <QtMoc Include="searchfaileddialog.h" />
+    <QtMoc Include="searchlist.h" />
+    <QtMoc Include="searchresultdialog.h" />
+    <ClInclude Include="singleton.h" />
+    <QtMoc Include="statewidget.h" />
+    <QtMoc Include="tcpmgr.h" />
+    <QtMoc Include="textbubble.h" />
+    <ClInclude Include="timerbtn.h" />
+    <ClInclude Include="userdata.h" />
+    <QtMoc Include="usermgr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -FS -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;$(IntDir)\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -FS -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -O2 -MD -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;$(IntDir)\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="adduseritem.ui" />
+    <QtUic Include="applyfriend.ui" />
+    <QtUic Include="applyfrienditem.ui" />
+    <QtUic Include="applyfriendpage.ui" />
+    <QtUic Include="chatdialog.ui" />
+    <QtUic Include="chatpage.ui" />
+    <QtUic Include="chatuserwid.ui" />
+    <QtUic Include="contactuseritem.ui" />
+    <QtUic Include="friendlabel.ui" />
+    <QtUic Include="grouptipitem.ui" />
+    <QtUic Include="loadingdialog.ui" />
+    <QtUic Include="logindialog.ui" />
+    <QtUic Include="mainwindow.ui" />
+    <QtUic Include="registerdialog.ui" />
+    <QtUic Include="resetdialog.ui" />
+    <QtUic Include="searchfaileddialog.ui" />
+    <QtUic Include="searchresultdialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\add_friend.png" />
+    <None Include="res\add_friend_hover.png" />
+    <None Include="res\add_friend_normal.png" />
+    <None Include="res\addtip.png" />
+    <None Include="res\arowdown.png" />
+    <None Include="res\chat_icon.png" />
+    <None Include="res\chat_icon_hover.png" />
+    <None Include="res\chat_icon_press.png" />
+    <None Include="res\chat_icon_select_hover.png" />
+    <None Include="res\chat_icon_select_press.png" />
+    <None Include="res\close_search.png" />
+    <None Include="res\close_transparent.png" />
+    <None Include="res\contact_list.png" />
+    <None Include="res\contact_list_hover.png" />
+    <None Include="res\contact_list_press.png" />
+    <None Include="res\female.png" />
+    <None Include="res\filedir.png" />
+    <None Include="res\filedir_hover.png" />
+    <None Include="res\filedir_press.png" />
+    <None Include="res\head_1.jpg" />
+    <None Include="res\head_2.jpg" />
+    <None Include="res\head_3.jpg" />
+    <None Include="res\head_4.jpg" />
+    <None Include="res\head_5.jpg" />
+    <None Include="res\ice.png" />
+    <None Include="res\link1.jpg" />
+    <None Include="res\loading.gif" />
+    <None Include="res\male.png" />
+    <None Include="res\msg_chat_hover.png" />
+    <None Include="res\msg_chat_normal.png" />
+    <None Include="res\msg_chat_press.png" />
+    <None Include="res\red_point.png" />
+    <QtRcc Include="resource.qrc" />
+    <None Include="res\right_tip.png" />
+    <None Include="res\search.png" />
+    <None Include="res\smile.png" />
+    <None Include="res\smile_hover.png" />
+    <None Include="res\smile_press.png" />
+    <None Include="style\stylesheet.qss" />
+    <None Include="res\tipclose.png" />
+    <None Include="res\unvisible.png" />
+    <None Include="res\unvisible_hover.png" />
+    <None Include="res\video_chat_hover.png" />
+    <None Include="res\video_chat_normal.png" />
+    <None Include="res\video_chat_press.png" />
+    <None Include="res\visible.png" />
+    <None Include="res\visible_hover.png" />
+    <None Include="res\voice_chat_hover.png" />
+    <None Include="res\voice_chat_normal.png" />
+    <None Include="res\voice_chat_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(QTDIR)\bin\Qt5Core.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Cored.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Gui.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Guid.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Network.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Networkd.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Widgets.dll" />
+    <None Include="$(QTDIR)\bin\Qt5Widgetsd.dll" />
+    <None Include="$(QTDIR)\bin\libEGL.dll" />
+    <None Include="$(QTDIR)\bin\libEGLd.dll" />
+    <None Include="$(QTDIR)\bin\libGLESv2.dll" />
+    <None Include="$(QTDIR)\bin\libGLESv2d.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\chatProject_resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+    <Image Include="assets/logo_150x150.png" />
+    <Image Include="assets/logo_44x44.png" />
+    <Image Include="assets/logo_store.png" />
+    <Image Include="assets/logo_620x300.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
