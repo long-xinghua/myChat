@@ -5,6 +5,8 @@
 #include "singleton.h"
 #include "userdata.h"
 #include <vector>
+#include <QJsonArray>
+
 
 
 /***********************************************
@@ -27,8 +29,11 @@ public:
     void setName(QString name);
     void setUid(int uid);
     void setToken(QString token);
-    std::vector<std::shared_ptr<ApplyInfo>> getApplyList();
-
+    void setUserInfo(std::shared_ptr<UserInfo> userInfo);       // 设置本用户信息
+    std::vector<std::shared_ptr<ApplyInfo>> getApplyList();     // 获取申请信息列表
+    bool alreadyApply(int uid);                                 // 查询是否已有某个申请人的信息
+    void addApplyList(std::shared_ptr<ApplyInfo> apply);        // 向申请列表中添加申请信息
+    void appendApplyList(QJsonArray array);                     // 通过json数组添加已有的好友申请信息
     QString getName();
     int getUid();
 private:
@@ -38,7 +43,7 @@ private:
     QString _token;
     int _uid;
     std::vector<std::shared_ptr<ApplyInfo>> _applyList; // 保存该用户收到的好友申请信息
-
+    std::shared_ptr<UserInfo> _userInfo;
 
 signals:
 

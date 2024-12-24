@@ -8,6 +8,7 @@
 #include <vector>
 #include "loadingdialog.h"
 #include "tcpmgr.h"
+#include "usermgr.h"
 
 
 ChatDialog::ChatDialog(QWidget *parent) :
@@ -265,4 +266,16 @@ void ChatDialog::slot_apply_friend(std::shared_ptr<AddFriendApply> applyInfo)
     QString nick = applyInfo->_nick;
     QString icon = applyInfo->_icon;
     int sex = applyInfo->_sex;
+    qDebug()<<"收到好友申请，申请人uid:"<<from_uid<<"，申请人介绍："<<applyName<<"，申请人昵称："<<nick;
+
+    bool b_already = UserMgr::GetInstance()->alreadyApply(from_uid);
+    if(b_already){
+        qDebug()<<"申请人已申请过好友";
+        return;
+    }
+
+    UserMgr::GetInstance()->addApplyList(std::make_shared<ApplyInfo>(applyInfo));
+    ui->sideContactLabel->showRedPoint(true);           // 侧边栏联系人标签显示小红点
+    ui->contactList->showRedPoint(true);
+    ui->friendApplyPage->addNewApply(applyInfo);        // 右侧好友申请界面添加新申请条目
 }

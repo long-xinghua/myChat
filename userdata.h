@@ -45,6 +45,10 @@ struct ApplyInfo {
         :_uid(uid),_name(name),_desc(desc),
         _icon(icon),_nick(nick),_sex(sex),_status(status){}
 
+    ApplyInfo(std::shared_ptr<AddFriendApply> addInfo):
+        _uid(addInfo->_from_uid),_name(addInfo->_name),_desc(addInfo->_desc),
+        _icon(addInfo->_icon),_nick(addInfo->_nick),_sex(addInfo->_sex),_status(0){}
+
     void setIcon(QString head){
         _icon = head;
     }

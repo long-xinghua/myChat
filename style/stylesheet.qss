@@ -688,4 +688,46 @@ ApplyFriendItem #userNameLabel{
     font-size: 16px;
     font-family: "Microsoft YaHei";
 }
+
+#AuthenFriend {
+    border: 2px solid #f1f1f1;
+    font-size: 14px;
+    background: #f7f7f8;
+}
+
+#redPoint {
+    border-image: url(:/res/red_point.png);
+}
+
+SearchFailedDialog{
+   background-color: #ffffff;
+}
+
+SearchFailedDialog #tipLabel, #tipLabel_2 {
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+
+SearchFailedDialog #confirmButton[state='normal']{
+    background: #07c160;
+    color: #ffffff;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+SearchFailedDialog #confirmButton[state='hover']{
+    background: #3bbb4b;
+    color: #ffffff;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+    border-radius: 20px; /* 设置圆角 */
+}
+
+SearchFailedDialog #confirmButton[state='press']{
+   background: #07c160;
+   color: #ffffff;
+   font-size: 14px; /* 设置字体大小 */
+   font-family: "Microsoft YaHei"; /* 设置字体 */
+   border-radius: 20px; /* 设置圆角 */
 }

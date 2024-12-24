@@ -134,12 +134,21 @@ void TcpMgr::initHandlers()
             return;
         }
 
-        // 说明登录没有问题，发送切换聊天界面的信号
         // 先保存一下用户信息
-        UserMgr::GetInstance()->setName(jsonObj["name"].toString());
-        UserMgr::GetInstance()->setUid(jsonObj["uid"].toInt());
+        auto uid = jsonObj["uid"].toInt();
+        auto name = jsonObj["name"].toString();
+        auto nick = jsonObj["nick"].toString();
+        auto icon = jsonObj["icon"].toString();
+        auto sex = jsonObj["sex"].toInt();
+        auto userInfo = std::make_shared<UserInfo>(uid, name, nick, icon, sex);
+        UserMgr::GetInstance()->setUserInfo(userInfo);
         UserMgr::GetInstance()->setToken(jsonObj["token"].toString());
-        //showTip(tr("登陆成功！"), true);
+        // 保存用户收到的好友申请的信息
+        if(jsonObj.contains("apply_list")){
+            UserMgr::GetInstance()->appendApplyList(jsonObj["apply_list"].toArray());   // 转为json数组传进去
+        }
+
+        // 发送切换聊天界面的信号
         emit sig_switch_chatDlg();
         qDebug()<<"跳转到登陆界面";
     });

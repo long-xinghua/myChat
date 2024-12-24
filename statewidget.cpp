@@ -157,7 +157,7 @@ void StateWidget::addRedPoint()
 {
     //添加红点示意图
     _red_point = new QLabel();
-    _red_point->setObjectName("red_point");
+    _red_point->setObjectName("redPoint");
     QVBoxLayout* layout2 = new QVBoxLayout;
     _red_point->setAlignment(Qt::AlignCenter);
     layout2->addWidget(_red_point);

@@ -7,7 +7,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QStyleOption>
-//#include "authenfriend.h"
+#include "authfriend.h"
 #include "applyfriend.h"
 #include "usermgr.h"
 
@@ -47,12 +47,12 @@ void ApplyFriendPage::addNewApply(std::shared_ptr<AddFriendApply> apply)
     ui->applyFriendList->insertItem(0,item);
     ui->applyFriendList->setItemWidget(item, apply_item);
     apply_item->showAddBtn(true);
-    //收到审核好友信号
+    //点击添加按钮，审核好友请求
     connect(apply_item, &ApplyFriendItem::sig_auth_friend, [this](std::shared_ptr<ApplyInfo> apply_info) {
-//        auto* authFriend = new AuthenFriend(this);
-//        authFriend->setModal(true);
-//        authFriend->setApplyInfo(apply_info);
-//        authFriend->show();
+        auto* authFriend = new AuthFriend(this);
+        authFriend->setModal(true);
+        authFriend->setApplyInfo(apply_info);
+        authFriend->show();
         });
 }
 
@@ -89,10 +89,10 @@ void ApplyFriendPage::loadApplyList()
 
         //收到审核好友信号
         connect(apply_item, &ApplyFriendItem::sig_auth_friend, [this](std::shared_ptr<ApplyInfo> apply_info) {
-//            auto* authFriend = new AuthenFriend(this);
-//            authFriend->setModal(true);
-//            authFriend->SetApplyInfo(apply_info);
-//            authFriend->show();
+            auto* authFriend = new AuthFriend(this);
+            authFriend->setModal(true);
+            authFriend->setApplyInfo(apply_info);
+            authFriend->show();
             });
     }
 

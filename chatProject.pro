@@ -65,7 +65,8 @@ SOURCES += \
     applyfriendpage.cpp \
     applyfrienditem.cpp \
     applyfriendlist.cpp \
-    searchfaileddialog.cpp
+    searchfaileddialog.cpp \
+    authfriend.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -107,7 +108,8 @@ HEADERS += \
     applyfriendpage.h \
     applyfrienditem.h \
     applyfriendlist.h \
-    searchfaileddialog.h
+    searchfaileddialog.h \
+    authfriend.h
 
 FORMS += \
         mainwindow.ui \
@@ -126,7 +128,8 @@ FORMS += \
     grouptipitem.ui \
     applyfriendpage.ui \
     applyfrienditem.ui \
-    searchfaileddialog.ui
+    searchfaileddialog.ui \
+    authfriend.ui
 
 RESOURCES += \
     resource.qrc

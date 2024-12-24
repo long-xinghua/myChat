@@ -28,7 +28,7 @@ class ApplyFriendPage : public QWidget
 public:
     explicit ApplyFriendPage(QWidget *parent = 0);
     ~ApplyFriendPage();
-    void addNewApply(std::shared_ptr<AddFriendApply> apply);
+    void addNewApply(std::shared_ptr<AddFriendApply> apply);    // 收到新好友申请添加申请条目
 protected:
     void paintEvent(QPaintEvent* event);
 
