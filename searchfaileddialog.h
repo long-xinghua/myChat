@@ -14,6 +14,8 @@ class SearchFailedDialog : public QDialog
 public:
     explicit SearchFailedDialog(QWidget *parent = 0);
     ~SearchFailedDialog();
+    setTipLabel(QString text);
+    setTipLabel_2(QString text);
 
 private slots:
     void on_confirmButton_clicked();

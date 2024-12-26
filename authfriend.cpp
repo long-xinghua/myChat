@@ -488,6 +488,24 @@ void AuthFriend::slotAddFirendLabelByClickTip(QString text)
 void AuthFriend::slotApplySure()
 {
     qDebug()<<"按下添加好友按钮";
+    // 发送认证信息
+    QJsonObject jsonObj;
+    // 认证时from_uid是自己的uid，to_uid为申请人的uid
+    jsonObj["from_uid"] = UserMgr::GetInstance()->getUid();
+    jsonObj["to_uid"] = _applyInfo->_uid;
+    qDebug()<<"自己uid:"<<UserMgr::GetInstance()->getUid()<<", 对方uid:"<<_applyInfo->_uid;
+    QString remark = "";
+    if(ui->remarkEdit->text().isEmpty()){
+        remark = ui->remarkEdit->placeholderText();
+    }else{
+        remark = ui->remarkEdit->text();
+    }
+    jsonObj["remark"] = remark;
+
+    QJsonDocument doc(jsonObj);
+    QByteArray jsonArray = doc.toJson(QJsonDocument::Compact);
+
+    TcpMgr::GetInstance()->sig_send_data(ReqId::ID_AUTH_FRIEND_REQ, jsonArray);
 
 
     this->hide();

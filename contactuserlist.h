@@ -39,8 +39,8 @@ private:
     
 public slots:
     void slot_item_clicked(QListWidgetItem* item);
-//    void slot_add_auth_friend(std::shared_ptr<AuthInfo>);   // 给别人发的好友申请
-//    void slot_auth_rsp(std::shared_ptr<AuthRsp>);           // 别人发过来的好友申请
+    void slot_add_auth_friend(std::shared_ptr<AuthInfo>);   // 对端同意自己的好友申请后更新界面
+    void slot_auth_rsp(std::shared_ptr<AuthRsp>);           // 同意对端的好友申请后更新界面
 signals:
     void sig_loading_contact_user();
     void sig_switch_apply_friend_page();    // 切换到申请好友页面

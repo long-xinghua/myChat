@@ -7,6 +7,7 @@
 #include "customizededit.h"
 #include "searchfaileddialog.h"
 #include <QJsonDocument>
+#include "usermgr.h"
 
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_searchResultDlg(nullptr), _search_edit(nullptr), _send_pending(false)
@@ -162,8 +163,21 @@ void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)
         _searchResultDlg = std::make_shared<SearchFailedDialog>(this);
     }
     else{                   // 搜索成功
+        // 判断搜索的用户是否是自己
+        if(si->_uid == UserMgr::GetInstance()->getUid()){
+            auto searchFailedDlg = new SearchFailedDialog(this);
+            searchFailedDlg->setTipLabel("查找用户为本用户");
+            searchFailedDlg->setTipLabel_2("无法添加自身为好友");
+            searchFailedDlg->show();
+            return;
+        }
         // 判断是否已经添加了好友
-        // todo...
+        bool isFriend = UserMgr::GetInstance()->checkFriendByUid(si->_uid);
+        // 是好友则直接跳转到与其的聊天界面
+        if(isFriend){
+            emit sig_jump_chat_item(si);
+            return;
+        }
         _searchResultDlg = std::make_shared<SearchResultDialog>(this);
         std::dynamic_pointer_cast<SearchResultDialog>(_searchResultDlg)->setSearchInfo(si);
     }

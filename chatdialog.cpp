@@ -9,10 +9,11 @@
 #include "loadingdialog.h"
 #include "tcpmgr.h"
 #include "usermgr.h"
+#include "contactuseritem.h"
 
 
 ChatDialog::ChatDialog(QWidget *parent) :
-    QDialog(parent), _mode(ChatUIMode::ChatMode), _isSearching(false), _b_loading(false),
+    QDialog(parent), _mode(ChatUIMode::ChatMode), _isSearching(false), _b_loading(false), _cur_chat_uid(0),
     ui(new Ui::ChatDialog)
 {
     ui->setupUi(this);
@@ -46,11 +47,12 @@ ChatDialog::ChatDialog(QWidget *parent) :
     });
 
 
-
+    // 连接加载聊天记录和联系人的信号
     connect(ui->chatUserList, &ChatUserList::sig_loading_chat_user, this, &ChatDialog::slot_loading_chat_user);
+    connect(ui->contactList, &ContactUserList::sig_loading_contact_user, this, &ChatDialog::slot_loading_contact_user);
 
     // 设置侧边栏中的头像
-    QPixmap head(":/res/link1.jpg");
+    QPixmap head(UserMgr::GetInstance()->getIcon());
     head = head.scaled(ui->sideHeadLabel->size(), Qt::KeepAspectRatio);
     ui->sideHeadLabel->setPixmap(head);
     //ui->sideHeadLabel->setScaledContents(true);
@@ -82,8 +84,19 @@ ChatDialog::ChatDialog(QWidget *parent) :
     // 连接新好友申请的信号和槽
     connect(TcpMgr::GetInstance().get(), TcpMgr::sig_firend_apply, this, ChatDialog::slot_apply_friend);
 
-    // 下面这里测试用
-    addUserListTest();
+    // 连接对方认证好友通过信号
+    connect(TcpMgr::GetInstance().get(), TcpMgr::sig_add_auth_friend, this, ChatDialog::slot_add_auth_firend);
+    // 连接认证通过对方好友申请信号
+    connect(TcpMgr::GetInstance().get(), TcpMgr::sig_auth_rsp, this, ChatDialog::slot_auth_rsp);
+    //  连接跳转好友聊天信号
+    connect(ui->searchList, &SearchList::sig_jump_chat_item, this, &ChatDialog::slot_jump_chat_item);
+    // 往chatUserList添加真实数据
+    addUserList();
+    // 往contactList添加真实数据
+    addContactList();
+
+    // 下面这里测试用,往chatUserList添加模拟数据
+    //addUserListTest();
 }
 
 ChatDialog::~ChatDialog()
@@ -137,7 +150,8 @@ void ChatDialog::addUserListTest()
 
         // 创建一个chatUserWid
         auto* chatUserWid = new ChatUserWid();
-        chatUserWid->setInfo(names[name_i], heads[head_i], strs[str_i]);
+        auto userInfo = std::make_shared<UserInfo>(0, names[name_i], names[name_i], heads[head_i], 0, strs[str_i]);
+        chatUserWid->setInfo(userInfo);
         // 创建一个QListWidgetItem对象
         QListWidgetItem* item = new QListWidgetItem;
 
@@ -145,6 +159,53 @@ void ChatDialog::addUserListTest()
         ui->chatUserList->addItem(item);    // 把item加到chatUserList
         ui->chatUserList->setItemWidget(item, chatUserWid); // 把item设置成自定义的widget
         //item->setFlags(item->flags() & ~Qt::ItemIsSelectable); // 没用
+    }
+}
+
+void ChatDialog::addUserList()
+{
+    // 按照好友列表加载聊天记录
+    auto friendList = UserMgr::GetInstance()->getChatListPerPage();
+    if(!friendList.empty()){
+        for(auto& myFriend : friendList){
+            auto find_iter = _chat_items_added.find(myFriend->_uid);
+            if(find_iter != _chat_items_added.end()){   // 在已添加条目中找到了就跳过
+                continue;
+            }
+            ChatUserWid* chat_user_wid = new ChatUserWid();
+            std::shared_ptr<UserInfo> userInfo = std::make_shared<UserInfo>(myFriend);
+            chat_user_wid->setInfo(userInfo);
+
+            QListWidgetItem* item = new QListWidgetItem();
+            item->setSizeHint(chat_user_wid->sizeHint());
+            ui->chatUserList->addItem(item);
+            ui->chatUserList->setItemWidget(item, chat_user_wid);
+            _chat_items_added.insert(myFriend->_uid, item);
+        }
+        UserMgr::GetInstance()->updateChatLoadedCount();
+    }
+}
+
+void ChatDialog::addContactList()
+{
+    // 按照好友列表加载聊天记录
+    auto friendList = UserMgr::GetInstance()->getConListPerPage();
+    if(!friendList.empty()){
+        for(auto& myFriend : friendList){
+            auto find_iter = _contact_items_added.find(myFriend->_uid);
+            if(find_iter != _contact_items_added.end()){   // 在已添加条目中找到了就跳过
+                continue;
+            }
+            ContactUserItem* contact_wid = new ContactUserItem();
+            contact_wid->setInfo(myFriend->_uid, myFriend->_name, myFriend->_icon);
+
+            QListWidgetItem* item = new QListWidgetItem();
+            item->setSizeHint(contact_wid->sizeHint());
+            ui->contactList->addItem(item);
+            ui->contactList->setItemWidget(item, contact_wid);
+            _contact_items_added.insert(myFriend->_uid, item);
+        }
+        UserMgr::GetInstance()-> updateContactLoadedCount();
     }
 }
 
@@ -202,25 +263,94 @@ void ChatDialog::handleGlobalMousePress(QMouseEvent *event)
     }
 }
 
-void ChatDialog::slot_loading_chat_user()
+void ChatDialog::setSelectChatItem(int uid)
 {
-    if(_b_loading){     // 如果_b_loading为true说明所有信息都加载出来了，就不再加载了
+    if(ui->chatUserList->count() <= 0){
         return;
     }
 
-    _b_loading = true;
+    if(uid == 0){
+        ui->chatUserList->setCurrentRow(0);
+        QListWidgetItem *firstItem = ui->chatUserList->item(0);
+        if(!firstItem){
+            return;
+        }
+
+        //转为widget
+        QWidget *widget = ui->chatUserList->itemWidget(firstItem);
+        if(!widget){
+            return;
+        }
+        // 把widget转成ChatUserWid类型
+        auto con_item = qobject_cast<ChatUserWid*>(widget);
+        if(!con_item){
+            return;
+        }
+        // 得到当前条目记录的用户uid
+        _cur_chat_uid = con_item->getUserInfo()->_uid;
+
+        return;
+    }
+
+    auto find_iter = _chat_items_added.find(uid);
+    if(find_iter == _chat_items_added.end()){
+        qDebug() << "uid " <<uid<< " not found, set curent row 0";
+        ui->chatUserList->setCurrentRow(0);
+        return;
+    }
+
+    ui->chatUserList->setCurrentItem(find_iter.value());
+    _cur_chat_uid = uid;
+}
+
+void ChatDialog::setSelectChatPage(int uid)
+{
+    qDebug()<<"跳转到和用户"<<uid<<"的聊天界面";
+}
+
+void ChatDialog::slot_loading_chat_user()
+{
+    // 全部加载完了就直接返回
+    if(UserMgr::GetInstance()->isLoadChatFin()){
+        qDebug()<<"已加载完全部聊天记录";
+        return;
+    }
+
     // 创建一个加载对话框，在加载更多信息时显示正在加载中
     LoadingDialog* loadingDlg = new LoadingDialog(this);
     loadingDlg->setModal(true); // 将对话框设置成模态的，必须等对话框处理完才能进行下一步
     loadingDlg->show();
     qDebug()<<"添加更多用户信息...";
-    addUserListTest();  // 这一行为测试用，实际得加载真实数据
+    //addUserListTest();  // 这一行为测试用，实际得加载真实数据
+    addUserList();
 
     // 加载完毕后关闭对话框
+    loadingDlg->hide();
     loadingDlg->deleteLater();
 
 
 
+}
+
+void ChatDialog::slot_loading_contact_user()
+{
+    // 全部加载完了就直接返回
+    if(UserMgr::GetInstance()->isLoadConFin()){
+        qDebug()<<"已加载完全部联系人";
+        return;
+    }
+
+    // 创建一个加载对话框，在加载更多信息时显示正在加载中
+    LoadingDialog* loadingDlg = new LoadingDialog(this);
+    loadingDlg->setModal(true); // 将对话框设置成模态的，必须等对话框处理完才能进行下一步
+    loadingDlg->show();
+    qDebug()<<"添加更多用户信息...";
+    //addUserListTest();  // 这一行为测试用，实际得加载真实数据
+    addContactList();
+
+    // 加载完毕后关闭对话框
+    loadingDlg->hide();
+    loadingDlg->deleteLater();
 }
 
 void ChatDialog::slot_sideWid_clicked(StateWidget *w)
@@ -278,4 +408,78 @@ void ChatDialog::slot_apply_friend(std::shared_ptr<AddFriendApply> applyInfo)
     ui->sideContactLabel->showRedPoint(true);           // 侧边栏联系人标签显示小红点
     ui->contactList->showRedPoint(true);
     ui->friendApplyPage->addNewApply(applyInfo);        // 右侧好友申请界面添加新申请条目
+}
+
+void ChatDialog::slot_add_auth_firend(std::shared_ptr<AuthInfo> authInfo)
+{
+    bool isFriend = UserMgr::GetInstance()->checkFriendByUid(authInfo->_uid);
+    if(isFriend){
+        return;
+    }
+
+    auto* chat_user_wid = new ChatUserWid;
+    auto user_info = std::make_shared<UserInfo>(authInfo);
+    chat_user_wid->setInfo(user_info);
+
+    auto* item = new QListWidgetItem;
+    item->setSizeHint(chat_user_wid->sizeHint());
+    ui->chatUserList->insertItem(0, item);
+    ui->chatUserList->setItemWidget(item, chat_user_wid);
+    _chat_items_added.insert(authInfo->_uid, item);
+}
+
+void ChatDialog::slot_auth_rsp(std::shared_ptr<AuthRsp> rsp)
+{
+    bool isFriend = UserMgr::GetInstance()->checkFriendByUid(rsp->_uid);
+    if(isFriend){
+        return;
+    }
+
+    auto* chat_user_wid = new ChatUserWid;
+    auto user_info = std::make_shared<UserInfo>(rsp);
+    chat_user_wid->setInfo(user_info);
+
+    auto* item = new QListWidgetItem;
+    item->setSizeHint(chat_user_wid->sizeHint());
+    ui->chatUserList->insertItem(0, item);
+    ui->chatUserList->setItemWidget(item, chat_user_wid);
+    _chat_items_added.insert(rsp->_uid, item);
+}
+
+void ChatDialog::slot_jump_chat_item(std::shared_ptr<SearchInfo> si)
+{
+    qDebug() << "slot_jump_chat_item called " << endl;
+    auto find_iter = _chat_items_added.find(si->_uid);
+    if(find_iter != _chat_items_added.end()){
+        qDebug() << "jump to chat item , uid is " << si->_uid;
+        ui->chatUserList->scrollToItem(find_iter.value());
+        ui->sideChatLabel->setSelected(true);
+        // 设置选中的聊天条目
+        setSelectChatItem(si->_uid);
+        //更新聊天界面信息
+        setSelectChatPage(si->_uid);
+        // 模拟点击了一下测边框聊天标签，跳转到聊天界面
+        slot_sideWid_clicked(ui->sideChatLabel);
+        return;
+    }
+
+    //如果没找到，则创建新的插入listwidget
+
+    auto* chat_user_wid = new ChatUserWid();
+    auto user_info = std::make_shared<UserInfo>(si);
+    chat_user_wid->setInfo(user_info);
+    QListWidgetItem* item = new QListWidgetItem;
+    item->setSizeHint(chat_user_wid->sizeHint());
+    ui->chatUserList->insertItem(0, item);
+    ui->chatUserList->setItemWidget(item, chat_user_wid);
+
+    _chat_items_added.insert(si->_uid, item);
+
+    ui->sideChatLabel->setSelected(true);
+    // 设置选中的聊天条目
+    setSelectChatItem(si->_uid);
+    //更新聊天界面信息
+    setSelectChatPage(si->_uid);
+    // 模拟点击了一下测边框聊天标签，跳转到聊天界面
+    slot_sideWid_clicked(ui->sideChatLabel);
 }

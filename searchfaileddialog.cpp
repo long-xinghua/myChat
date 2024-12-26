@@ -19,6 +19,16 @@ SearchFailedDialog::~SearchFailedDialog()
     delete ui;
 }
 
+SearchFailedDialog::setTipLabel(QString text)
+{
+    ui->tipLabel->setText(text);
+}
+
+SearchFailedDialog::setTipLabel_2(QString text)
+{
+    ui->tipLabel_2->setText(text);
+}
+
 void SearchFailedDialog::on_confirmButton_clicked()
 {
     this->hide();

@@ -35,7 +35,8 @@ private:
 
     void waitPending(bool pending = true);      // 根据pending情况显示模态加载对话框和更新_send_pending状态
     void addTipItem();                 // 模拟从服务器获取到条目的情况，测试用
-
+signals:
+    void sig_jump_chat_item(std::shared_ptr<SearchInfo> si);
 private slots:
     void slot_item_clicked(QListWidgetItem *item);          // 点击搜索列表中的物品槽函数
     void slot_user_search(std::shared_ptr<SearchInfo> si);  // 搜索用户回包的回调函数

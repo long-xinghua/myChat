@@ -124,5 +124,7 @@ extern std::vector<QString> heads;
 extern std::vector<QString> strs;
 extern std::vector<QString> names;
 
+const int CHAT_COUNT_PER_PAGE = 10;     // 聊天列表每页加载的条目数量
+
 
 #endif // GLOBAL_H
