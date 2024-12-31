@@ -51,7 +51,7 @@ LoginDialog::~LoginDialog()
 void LoginDialog::initHeadLabel()
 {
     // 加载图片
-    QPixmap originalPixmap(":/res/link1.jpg");
+    QPixmap originalPixmap(":/res/head_link1.jpg");
     // 设置图片的自动缩放
     qDebug()<<originalPixmap.size()<<ui->headLabel->size();
     originalPixmap = originalPixmap.scaled(ui->headLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);   // KeepAspectRatio等比例缩放，SmoothTransformation平滑转移

@@ -138,7 +138,10 @@ RESOURCES += \
     resource.qrc
 
 DISTFILES += \
-    config.ini
+    config.ini \
+    res/head_ganon1.jpg \
+    res/head_link1.jpg \
+    res/head_zelda1.jpg
 
 CONFIG(debug, debug | release){
         #debug

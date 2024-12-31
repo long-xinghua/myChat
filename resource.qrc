@@ -48,6 +48,9 @@
         <file>res/voice_chat_hover.png</file>
         <file>res/voice_chat_normal.png</file>
         <file>res/voice_chat_press.png</file>
+        <file>res/head_ganon1.jpg</file>
+        <file>res/head_link1.jpg</file>
+        <file>res/head_zelda1.jpg</file>
         <file>res/link1.jpg</file>
     </qresource>
 </RCC>
