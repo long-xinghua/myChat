@@ -731,3 +731,56 @@ SearchFailedDialog #confirmButton[state='press']{
    font-family: "Microsoft YaHei"; /* 设置字体 */
    border-radius: 20px; /* 设置圆角 */
 }
+
+#friendInfoPage #nick_tip,
+#friendInfoPage #nick_lb,
+#friendInfoPage #bak_lb,
+#friendInfoPage #bak_tip
+{
+    color: #161616;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+}
+
+#friendInfoPage #name_lb
+{
+    color: #161616;
+    font-size: 16px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+}
+
+#friendInfoPage #msg_chat[state='normal'] {
+ border-image: url(:/res/msg_chat_normal.png);
+}
+
+#friendInfoPage #msg_chat[state='hover'] {
+ border-image: url(:/res/msg_chat_hover.png);
+}
+
+#friendInfoPage #msg_chat[state='press'] {
+ border-image: url(:/res/msg_chat_press.png);
+}
+
+#friendInfoPage #video_chat[state='normal'] {
+ border-image: url(:/res/video_chat_normal.png);
+}
+
+#friendInfoPage #video_chat[state='hover'] {
+ border-image: url(:/res/video_chat_hover.png);
+}
+
+#friendInfoPage #video_chat[state='press'] {
+ border-image: url(:/res/video_chat_press.png);
+}
+
+#friendInfoPage #voice_chat[state='normal'] {
+ border-image: url(:/res/voice_chat_normal.png);
+}
+
+#friendInfoPage #voice_chat[state='hover'] {
+ border-image: url(:/res/voice_chat_hover.png);
+}
+
+#friendInfoPage #voice_chat[state='press'] {
+ border-image: url(:/res/voice_chat_press.png);
+}

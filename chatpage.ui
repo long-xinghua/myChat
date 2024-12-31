@@ -68,7 +68,7 @@
             <item>
              <widget class="QLabel" name="titleLabel">
               <property name="text">
-               <string>阿巴巴</string>
+               <string/>
               </property>
              </widget>
             </item>

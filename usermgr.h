@@ -38,6 +38,7 @@ public:
     QString getName();
     int getUid();
     QString getIcon();
+    std::shared_ptr<UserInfo> getUserInfo();
     bool checkFriendByUid(int uid);                             // 通过uid查询用户是否已在好友列表中
     void addFriend(std::shared_ptr<AuthInfo> authInfo);         // 重载版本
     void addFriend(std::shared_ptr<AuthRsp> authRsp);
@@ -50,6 +51,8 @@ public:
     std::vector<std::shared_ptr<FriendInfo>> getConListPerPage();
     void updateContactLoadedCount();
     bool isLoadConFin();
+
+    void appendFriendChatMsg(int uid, std::vector<std::shared_ptr<TextChatData>> msgs);  // 更新与好友的聊天记录
 
 private:
     UserMgr();

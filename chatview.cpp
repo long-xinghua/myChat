@@ -58,7 +58,24 @@ void ChatView::prependChatItem(QWidget *item)
 
 void ChatView::insertChatItem(QWidget *before, QWidget *item)
 {
+    
+}
 
+void ChatView::removeAllItem()
+{
+    QVBoxLayout* layout = qobject_cast<QVBoxLayout*>(_pScrollArea->widget()->layout());
+    
+    int count = layout->count();
+    // 由于最下面的widget是占位用的，用于把界面撑开，不能删掉这个，删到倒数第二个
+    for(int i=0;i<count-1;i++){
+        QLayoutItem* item = layout->takeAt(0);  // 始终从最上面一个删
+        if(item){
+            if(QWidget* widget = item->widget()){
+                delete widget;
+            }
+            delete item;
+        }
+    }
 }
 
 bool ChatView::eventFilter(QObject *watched, QEvent *event)

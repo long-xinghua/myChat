@@ -90,6 +90,11 @@ QString UserMgr::getIcon()
     return _userInfo->_icon;
 }
 
+std::shared_ptr<UserInfo> UserMgr::getUserInfo()
+{
+    return _userInfo;
+}
+
 bool UserMgr::checkFriendByUid(int uid)
 {
     auto iter = _friendMap.find(uid);
@@ -210,6 +215,17 @@ bool UserMgr::isLoadConFin()
         return true;
     }
     return false;
+}
+
+void UserMgr::appendFriendChatMsg(int uid, std::vector<std::shared_ptr<TextChatData> > msgs)
+{
+    auto find_iter = _friendMap.find(uid);
+    if(find_iter == _friendMap.end()){
+        qDebug()<<"append friend uid  " << uid << " not found";
+        return;
+    }
+
+    find_iter.value()->appendChatMsgs(msgs);
 }
 
 

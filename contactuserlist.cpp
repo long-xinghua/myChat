@@ -26,6 +26,11 @@ ContactUserList::ContactUserList(QWidget *parent): QListWidget(parent), _add_fri
 
 }
 
+ContactUserList::~ContactUserList()
+{
+    qDebug()<<"ContactUserList 析构";
+}
+
 void ContactUserList::showRedPoint(bool show)
 {
     _add_friend_item->showRedPoint(show);
@@ -89,7 +94,7 @@ void ContactUserList::addContactUserList()
     _add_friend_item = new ContactUserItem();
     _add_friend_item->setObjectName("new_friend_item");
     _add_friend_item->setInfo(0, tr("新的朋友"),":/res/add_friend.png");
-    _add_friend_item->setItemType(ListItemType::APPLY_FRIEND_ITEM);
+    _add_friend_item->setItemType(ListItemType::APPLY_FRIEND_ITEM);         // 用的是联系人项的类，默认type为联系人的type，改一下
     QListWidgetItem *add_item = new QListWidgetItem;
     //qDebug()<<"chat_user_wid sizeHint is " << chat_user_wid->sizeHint();
     add_item->setSizeHint(_add_friend_item->sizeHint());
@@ -145,6 +150,7 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
     }
 
     auto itemType = customItem->getItemType();
+    // 获取item类型
     if(itemType == ListItemType::INVALID_ITEM
             || itemType == ListItemType::GROUP_TIP_ITEM){
         qDebug()<< "slot invalid item clicked ";
@@ -153,7 +159,6 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
 
    if(itemType == ListItemType::APPLY_FRIEND_ITEM){
 
-       // 创建对话框，提示用户
        qDebug()<< "apply friend item clicked ";
        //跳转到好友申请界面
        emit sig_switch_apply_friend_page();
@@ -162,6 +167,9 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
 
    if(itemType == ListItemType::CONTACT_USER_ITEM){
        qDebug()<<"contact user item clicked ";
+       ContactUserItem* contactItem = qobject_cast<ContactUserItem*>(customItem);
+       // 跳转到联系人详情页面
+       emit sig_switch_friend_info_page(contactItem->getInfo());
        return;
    }
 }

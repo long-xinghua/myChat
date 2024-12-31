@@ -29,6 +29,7 @@ public:
     void setInfo(std::shared_ptr<AuthInfo> authInfo);
     void setInfo(std::shared_ptr<AuthRsp> authResp);
     void setInfo(int uid, QString name, QString icon);
+    std::shared_ptr<UserInfo> getInfo();
     void showRedPoint(bool show = false);
 
 private:

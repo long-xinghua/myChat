@@ -30,6 +30,7 @@ public:
     QSize sizeHint() const override;    // 返回自定义的尺寸
     void setInfo(std::shared_ptr<UserInfo> user_info);
     std::shared_ptr<UserInfo> getUserInfo();
+    void updateLastMsg(const std::vector<std::shared_ptr<TextChatData>>& msgs); // 通过新接收的msgs更新_user_info信息和最近聊天信息
 
 private:
     Ui::ChatUserWid *ui;

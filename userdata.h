@@ -2,6 +2,9 @@
 #define USERDATA_H
 #include <QString>
 #include <memory>
+#include <vector>
+#include <QJsonArray>
+#include <QJsonObject>
 
 /***********************************************
     * @file     userdata.h
@@ -82,6 +85,7 @@ struct AuthRsp{
     int _sex;
 };
 
+struct TextChatData;
 // 好友信息
 struct FriendInfo{
     FriendInfo(int uid, QString name, QString nick, QString icon,
@@ -96,8 +100,8 @@ struct FriendInfo{
     FriendInfo(std::shared_ptr<AuthRsp> auth_rsp):_uid(auth_rsp->_uid),
     _nick(auth_rsp->_nick),_icon(auth_rsp->_icon),_name(auth_rsp->_name),
       _sex(auth_rsp->_sex){}
-
-    //void AppendChatMsgs(const std::vector<std::shared_ptr<TextChatData>> text_vec);
+    
+    void appendChatMsgs(const std::vector<std::shared_ptr<TextChatData>> text_vec);
 
     int _uid;
     QString _name;
@@ -107,8 +111,10 @@ struct FriendInfo{
     QString _desc;
     QString _back;
     QString _last_msg;
-    //std::vector<std::shared_ptr<TextChatData>> _chat_msgs;
+    std::vector<std::shared_ptr<TextChatData>> _chat_msgs;      // 记录历史聊天内容
 };
+
+struct TextChatData;
 
 struct UserInfo{
     UserInfo(int uid, QString name, QString nick, QString icon, int sex, QString last_msg=""):
@@ -122,10 +128,9 @@ struct UserInfo{
     UserInfo(std::shared_ptr<SearchInfo> search_info):
             _uid(search_info->_uid),_name(search_info->_name),_nick(search_info->_nick),
         _icon(search_info->_icon),_sex(search_info->_sex),_last_msg(""){}
-
     UserInfo(std::shared_ptr<FriendInfo> friend_info):
         _uid(friend_info->_uid),_name(friend_info->_name),_nick(friend_info->_nick),
-        _icon(friend_info->_icon),_sex(friend_info->_sex),_last_msg(""){}
+        _icon(friend_info->_icon),_sex(friend_info->_sex),_last_msg(""), _chat_msgs(friend_info->_chat_msgs){}
 
     int _uid;
     QString _name;
@@ -133,6 +138,34 @@ struct UserInfo{
     QString _icon;
     int _sex;
     QString _last_msg;
+    std::vector<std::shared_ptr<TextChatData>> _chat_msgs;
+};
+
+// 单条文字类型聊天数据
+struct TextChatData{
+    TextChatData(QString msg_id, QString msg_content, int from_uid, int to_uid):
+    _msg_id(msg_id), _msg_content(msg_content), _from_uid(from_uid), _to_uid(to_uid) {}
+    QString _msg_id;
+    QString _msg_content;
+    int _from_uid;
+    int _to_uid;
+};
+
+// 客户端和服务器之间发送的聊天消息,可能包含多条消息
+struct TextChatMsg{
+    TextChatMsg(int fromuid, int touid, QJsonArray arrays):
+        _from_uid(fromuid),_to_uid(touid){
+        for(auto  msg_data : arrays){
+            auto msg_obj = msg_data.toObject();
+            auto content = msg_obj["content"].toString();
+            auto msgid = msg_obj["msgid"].toString();
+            auto msg_ptr = std::make_shared<TextChatData>(msgid, content,fromuid, touid);
+            _chat_msgs.push_back(msg_ptr);
+        }
+    }
+    int _to_uid;
+    int _from_uid;
+    std::vector<std::shared_ptr<TextChatData>> _chat_msgs;
 };
 
 

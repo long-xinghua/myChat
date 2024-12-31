@@ -59,6 +59,11 @@ void ContactUserItem::setInfo(int uid, QString name, QString icon)
     ui->userNameLabel->setText(_userInfo->_name);
 }
 
+std::shared_ptr<UserInfo> ContactUserItem::getInfo()
+{
+    return _userInfo;
+}
+
 void ContactUserItem::showRedPoint(bool show)
 {
     if(show){

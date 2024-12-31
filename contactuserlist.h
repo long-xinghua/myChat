@@ -28,6 +28,7 @@ class ContactUserList : public QListWidget
     Q_OBJECT
 public:
     ContactUserList(QWidget* parent = nullptr);
+    ~ContactUserList();
     void showRedPoint(bool show = true);            // 显示小红点
 protected:
     bool eventFilter(QObject *, QEvent *) override; // 捕获鼠标进入、离开和滚动事件
@@ -43,8 +44,8 @@ public slots:
     void slot_auth_rsp(std::shared_ptr<AuthRsp>);           // 同意对端的好友申请后更新界面
 signals:
     void sig_loading_contact_user();
-    void sig_switch_apply_friend_page();    // 切换到申请好友页面
-    void sig_switch_friend_info_page();     // 切换到好友信息页面
+    void sig_switch_apply_friend_page();    // 切换到好友申请页面
+    void sig_switch_friend_info_page(std::shared_ptr<UserInfo> userInfo);     // 切换到好友信息页面
 };
 
 #endif // CONTACTUSERLIST_H

@@ -21,6 +21,7 @@ public:
     void appendChatItem(QWidget* item);                     // 尾插元素
     void prependChatItem(QWidget* item);                    // 头插元素
     void insertChatItem(QWidget* before, QWidget* item);    // 中间位置插入
+    void removeAllItem();                                   // 清除所有项
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;      // 事件过滤器，捕获鼠标进入、离开和滚轮事件
     void paintEvent(QPaintEvent* event) override;
